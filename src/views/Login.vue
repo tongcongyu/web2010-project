@@ -18,24 +18,28 @@
         <van-form class="login">
 		  <van-field
 		    
-		    name="账号/邮箱"
-		    label="手机号"
+		    type="text"
+		    label="用户名"
 		    placeholder="请输入手机号或邮箱"
-		    v-model="username"
+		    :attr="{ maxlength: '20' }"
+            v-model="username"
+            :state="usernameState"
 		  />
 		  <van-field
 		   
-		    name="密码"
+		    type="password"
 		    label="密码"
 		    placeholder="请输入密码"
-		    
+		    :attr="{ maxlength: '20', autocomplete: 'off' }"
+            v-model="password"
+            :state="passwordState"
 			>
 			<template #right>
                     <van-icon name="closed-eye" />忘记密码
             </template>
 		  </van-field>
 			
-		  <van-button round type="info">登录</van-button>
+		  <van-button round type="info" @click="handle">登录</van-button>
 		  
 		</van-form>
         <div class="register">
@@ -55,9 +59,7 @@
                 <svg t="1612853733624" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709" width="24" height="24"><path d="M230.4 576.512c-12.288 9.728-25.088 24.064-28.672 41.984-5.12 24.576-1.024 55.296 22.528 79.872 28.672 29.184 72.704 37.376 91.648 38.912 51.2 3.584 105.984-22.016 147.456-50.688 16.384-11.264 44.032-34.304 70.144-69.632-59.392-30.72-133.632-64.512-212.48-61.44-40.448 1.536-69.632 9.728-90.624 20.992z m752.64 135.68c26.112-61.44 40.96-129.024 40.96-200.192C1024 229.888 794.112 0 512 0S0 229.888 0 512s229.888 512 512 512c170.496 0 321.536-83.968 414.72-211.968-88.064-43.52-232.96-115.712-322.56-159.232-42.496 48.64-105.472 97.28-176.64 118.272-44.544 13.312-84.992 18.432-126.976 9.728-41.984-8.704-72.704-28.16-90.624-47.616-9.216-10.24-19.456-22.528-27.136-37.888 0.512 1.024 1.024 2.048 1.024 3.072 0 0-4.608-7.68-7.68-19.456-1.536-6.144-3.072-11.776-3.584-17.92-0.512-4.096-0.512-8.704 0-12.8-0.512-7.68 0-15.872 1.536-24.064 4.096-20.48 12.8-44.032 35.328-65.536 49.152-48.128 114.688-50.688 148.992-50.176 50.176 0.512 138.24 22.528 211.968 48.64 20.48-43.52 33.792-90.112 41.984-121.344h-307.2v-33.28h157.696v-66.56H272.384V302.08h190.464V235.52c0-9.216 2.048-16.384 16.384-16.384h74.752V302.08h207.36v33.28h-207.36v66.56h165.888s-16.896 92.672-68.608 184.32c115.2 40.96 278.016 104.448 331.776 125.952z" fill="#06B4FD" p-id="2710"></path></svg>
                 <span>支付宝</span>
             </a>
-        </div>
-		
-		
+        </div>	
     </div>
     
 </template>
@@ -65,15 +67,81 @@
 export default {
     data(){
         return{
+            //用户名的初始值
             username:"",
+            //密码初始值
+            password:"",
+            //标识用户名的状态
+            usernameState:"",
+            //标识密码的状态
+            passwordState:"",
         };
     },
+    methods:{
+        checkUsername(){
+            //判断用户名是否合法
+            let usernameRegExp=/^\w{6,20}$/;
+            if(usernameRegExp.test(this.username)){
+                this.usernameState="success";
+                return true;
+            }else{
+                //短消息提示框
+                this.$toast({
+                    message:"用户名格式错误",
+                    position:"middle",
+                    duration:"5000"
+                });
+                this.usernameState="error";
+                return false;
+            }
+        },
+        checkPassword() {
+        //判断密码是否合法
+        let passwordRegExp = /^\w{8,20}$/;
+            if (passwordRegExp.test(this.password)) {
+                this.passwordState = "success";
+                return true;
+            } else {
+                this.$toast({
+                    message: "密码格式错误",
+                    position: "middle",
+                });
+                this.passwordState = "error";
+                return false;
+            }
+        },
+        // 用户注册处理函数
+        handle() {
+        if (this.checkUsername() && this.checkPassword()) {
+            //将用户名和密码信息提交到WEB服务器
+            let object = {
+            username: this.username,
+            password: this.password,
+            };
+        this.axios.post("/login", this.qs.stringify(object)).then((res) => {
+            if (res.data.code == 200) {
+                this.$store.commit("loginOk", res.data.result);
+                // 把用户信息存入sessionStorage
+                let userString = JSON.stringify(res.data.result);
+                window.sessionStorage.setItem("user", userString);
+                // 登录成功
+                this.$router.push("/");
+                }
+                if (res.data.code == 201) {
+                // 登录失败
+                this.$messagebox("提示:用户名或密码错误",'111');
+                
+                }
+            });
+          }
+        },
+    }
 }
 </script>
 <style scoped>
 .van-nav-bar .van-icon {
     color: #232628;
-    font-size: 20px;    
+    font-size: 0.4rem;    
 }
 .hualogo{
     text-align: center;

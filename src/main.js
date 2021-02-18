@@ -3,6 +3,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+//引入axios
+import axios from 'axios';
+Vue.prototype.axios = axios;
+axios.defaults.baseURL = 'http://127.0.0.1:3000'
+//引入qs
+import qs from 'qs';
+Vue.prototype.qs = qs;
 // 引入vant
 import Vant from 'vant'
 // 引入vant的样式表
