@@ -14,10 +14,12 @@ Vue.prototype.qs = qs;
 import Vant from 'vant'
 // 引入vant的样式表
 import 'vant/lib/index.css'
+import totalTabbar from './components/TotalTabbar.vue'
 Vue.config.productionTip = false
 
 Vue.use(Vant)
 
+Vue.component('total-tabbar', totalTabbar);
 new Vue({
   router,
   store,

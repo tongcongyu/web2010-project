@@ -1,0 +1,22 @@
+<template>
+    <div class="cartLogin">
+        <h1>Hello World</h1>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+
+    }
+}
+</script>
+
+<style scoped>
+
+</style>
