@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 
 import Index from '../views/Index.vue'
 
+//引入未登录时购物车
+import Cart1 from '../views/Cart1.vue'
+
 
 //引入登录
 import Login from '../views/Login.vue'
@@ -13,7 +16,12 @@ import Personal from '../views/Personal.vue'
 // 引入首页
 Vue.use(VueRouter)
 
+
 const routes = [
+  {
+    path:'/cart1',
+    component:Cart1
+  },
   {
     path:'/personal',
     component:Personal
