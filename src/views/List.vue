@@ -10,10 +10,10 @@
             </template>
         </van-nav-bar>
         <div class="orderby">
-            <p>综合</p>
-            <p>销量</p>
-            <p class="price">价格</p>
-            <p>新品</p>
+            <p class="on" id="1" @click="list(this)">综合</p>
+            <p id="2" @click="list(this)">销量</p>
+            <p class="price" id="3" @click="list(this)">价格</p>
+            <p id="4" @click="list(this)">新品</p>
         </div>
         <div class="product">
             <p>送女友</p>
@@ -38,7 +38,16 @@ export default {
     data(){
         return{
             product_item:[],
-
+        }
+    },
+    methods:{
+        list(){
+            console.log(this)
+            let orderby_p=document.querySelectorAll('.orderby>p')
+            orderby_p.forEach(item=>{
+                item.classList.remove('on')
+            })
+            
         }
     },
     mounted(){
@@ -49,21 +58,24 @@ export default {
             }
         }).then(res=>{
             let result=res.data;
-            console.log(result);
             this.product_item=result;
         })
+        
+    },
+    watch:{
+
     }
 }
 </script>
 <style scoped>
 .orderby{
     display: flex;
+    color:#232628;
 }
 .orderby p{
     flex: 0 0 25%;
     font-size: 0.28rem;
     text-align: center;
-    color:#232628;
     margin: 0;
     height: 0.88rem;
     line-height: 0.88rem;
@@ -94,6 +106,7 @@ export default {
     margin-bottom: 1.2rem;
 }
 .product_item{
+    height: 5.4rem;
     flex: 0 0 47%;
     margin-top: 0.2rem;
     margin-left: 0.1rem;
@@ -102,6 +115,7 @@ export default {
 }
 .product_item img{
     width:100%;
+    height: 3.84rem;
 }
 .product_item p{
     margin: 0;
@@ -134,5 +148,8 @@ export default {
     font-size: 0.28rem;
     color: #FF734C;
     font-weight: 500;
+}
+.on{
+    color: #ff734c;
 }
 </style>

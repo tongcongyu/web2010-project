@@ -29,8 +29,8 @@
             </div>
             <!-- 产品分类 -->
             <div class="procate">
-                <div v-for='(image,index) of procate_images_up' :key="index" class="procate_up"><router-link to="/list/1"><img :src="image"><p>{{procate_name_up[index]}}</p></router-link></div>
-                <div v-for='(image,index) of procate_images_down' :key="index+'a'" class="procate_down"><router-link to="/list"><img :src="image" alt="" ><p>{{procate_name_down[index]}}</p></router-link></div>
+                <div v-for='(image,index) of procate_images_up' :key="index" class="procate_up"><router-link :to="`/list/${procate_images_up[index][0]}`"><img :src="procate_images_up[index][1]"><p>{{procate_images_up[index][2]}}</p></router-link></div>
+                <div v-for='(image,index) of procate_images_down' :key="index+'a'" class="procate_down"><router-link :to="`/list/${procate_images_down[index][0]}`"><img :src="procate_images_down[index][1]"><p>{{procate_images_down[index][2]}}</p></router-link></div>
             </div>
             <!-- 节日 -->
             <div class="festival">
@@ -98,33 +98,18 @@ export default {
             ],
             // 产品分类
             procate_images_up:[
-                'https://img02.hua.com/wx_imgs/home_flowers.png',
-                'https://img02.hua.com/wx_imgs/home_forever.png',
-                'https://img02.hua.com/wx_imgs/home_cakes.png',
-                'https://img02.hua.com/wx_imgs/home_gifts.png',
-                'https://img02.hua.com/wx_imgs/home_chocolate.png',
+                ['1','https://img02.hua.com/wx_imgs/home_flowers.png','鲜花'],
+                ['2','https://img02.hua.com/wx_imgs/home_forever.png','永生花'],
+                ['3','https://img02.hua.com/wx_imgs/home_cakes.png','蛋糕'],
+                ['4','https://img02.hua.com/wx_imgs/home_gifts.png','礼品'],
+                ['5','https://img02.hua.com/wx_imgs/home_chocolate.png','巧克力']
             ],
             procate_images_down:[
-                'https://img02.hua.com/wx_imgs/home_birthday_1224.png',
-                'https://img02.hua.com/wx_imgs/home_express_1224.png',
-                'https://img02.hua.com/wx_imgs/home_business_1224.png',
-                'https://img02.hua.com/wx_imgs/home_anniversary_1224.png',
-                'https://img02.hua.com/wx_imgs/home_group_1224.png'
-            ],
-            // 产品分类名称
-            procate_name_up:[
-                '鲜花',
-                '永生花',
-                '蛋糕',
-                '礼品',
-                '巧克力',
-            ],
-            procate_name_down:[
-                '生日祝福',
-                '表白求婚',
-                '商务开业',
-                '周年纪念',
-                '企业团购'
+                ['6','https://img02.hua.com/wx_imgs/home_birthday_1224.png','生日祝福'],
+                ['7','https://img02.hua.com/wx_imgs/home_express_1224.png','表白求婚'],
+                ['8','https://img02.hua.com/wx_imgs/home_business_1224.png','商务开业'],
+                ['9','https://img02.hua.com/wx_imgs/home_anniversary_1224.png','周年纪念'],
+                ['10','https://img02.hua.com/wx_imgs/home_group_1224.png','企业团购']
             ],
             scene_bottom_img:[
                 'https://img02.hua.com/wx_imgs/home_category_new.png?v2',

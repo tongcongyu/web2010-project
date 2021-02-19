@@ -21,6 +21,9 @@ export default {
         onCancel() {
             this.$router.push("/")
         },
-    }
+    },
+    mounted() {
+        
+    },
 }
 </script>
