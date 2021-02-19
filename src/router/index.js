@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-import Index from '../views/Index.vue'
-
 //引入未登录时购物车
 import Cart from '../views/Cart.vue'
 import CartLogin from '../views/CartLogin.vue'
@@ -39,7 +36,7 @@ const routes = [
 	{
 	  path: '/',
 	  component: Index
-	},
+  },
   {
     path:'/cart',
     component:Cart
@@ -59,10 +56,6 @@ const routes = [
   {
     path:'/login',
     component:Login
-  },
-  {
-    path: '/',
-    component: Index
   },
 ]
 const router = new VueRouter({
