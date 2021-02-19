@@ -1,20 +1,20 @@
 <template>
     <div class="home_page">
-        <!-- 下拉刷新页面 -->
         <!-- 导航栏 -->
-        <van-pull-refresh v-model="isLoading" success-text="刷新成功" @refresh="onRefresh" >
         <div class="home_content">
             <van-nav-bar id="nav" fixed>
                 <template #left class="nav_content">
-                    <router-link to="/search"><img src="../assets/search01.png" class="search"></router-link>
+                    <router-link to="/search"><van-icon name="search" size="0.48rem" color="#000" /></router-link>
                 </template>
                 <template #title>
                     <img src="https://m.hua.com/content/vue/login/static/img/m_hualogo.png" class="title_pic">
                 </template>
                 <template #right>
-                    <img src="../assets/customer01.png" class="search">
+                    <van-icon name="audio" size="0.48rem" color="#000" />
                 </template>
             </van-nav-bar>
+            <!-- 下拉刷新页面 -->
+            <van-pull-refresh v-model="isLoading" success-text="刷新成功" @refresh="onRefresh" >
             <!-- 轮播图 -->
             <van-swipe :autoplay="3000">
                 <van-swipe-item v-for="(image, index) in carousel_images" :key="index">
@@ -77,9 +77,8 @@
                     <a href="/">查看更多</a>
                 </div>
             </div>
-            
+            </van-pull-refresh>
         </div>
-        </van-pull-refresh>
     </div>
     
 </template>
@@ -134,7 +133,7 @@ export default {
         }
     },
     methods:{
-        // 刷新页面
+       // 刷新页面
         onRefresh() {
             // 刷新页面
             location.reload()
@@ -163,11 +162,8 @@ export default {
     height: 0.88rem;
     background: #F3F5F7;
 }
-/deep/.van-nav-bar__left, /deep/.van-nav-bar__right{
-    padding: 0;
-}
-.search{
-    width: 0.6rem;
+.van-nav-bar{
+    line-height: 0;
 }
 .title_pic{
     width: 3rem;

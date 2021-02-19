@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 导航栏 -->
-        <van-nav-bar title="鲜花">
+        <van-nav-bar :title="bar_title">
             <template #right>
                 <van-icon name="chat-o" size="0.5rem" />
             </template>
@@ -9,19 +9,19 @@
                 <router-link to="/"><van-icon name="arrow-left" size="0.5rem" /></router-link>
             </template>
         </van-nav-bar>
-        <div class="orderby">
-            <p class="on" id="1" @click="list(this)">综合</p>
-            <p id="2" @click="list(this)">销量</p>
-            <p class="price" id="3" @click="list(this)">价格</p>
-            <p id="4" @click="list(this)">新品</p>
-        </div>
-        <div class="product">
-            <p>送女友</p>
-            <p>送男性</p>
-            <p>送朋友</p>
-            <p>送长辈</p>
-            <p>筛选</p>
-        </div>
+        <van-tabs @click="onClick" line-height='0' title-active-color='#ff734c' title-inactive-color='#232628' v-model="active">
+            <van-tab title="综合"></van-tab>
+            <van-tab title="销量"></van-tab>
+            <van-tab title="价格"></van-tab>
+            <van-tab title="新品"></van-tab>
+        </van-tabs>
+        <van-tabs @click="onClickcopy" line-height='0' title-active-color='#ff734c' title-inactive-color='#232628' v-model="active02">
+            <van-tab title="全部"></van-tab>
+            <van-tab title="送女友"></van-tab>
+            <van-tab title="送男友"></van-tab>
+            <van-tab title="送朋友"></van-tab>
+            <van-tab title="送长辈"></van-tab>
+        </van-tabs>
         <!-- 商品列表 -->
         <div class="product_list">
             <div class="product_item" v-for="(value,index06) of product_item" :key="index06">
@@ -37,30 +37,51 @@
 export default {
     data(){
         return{
+            van_title:['鲜花','永生花','蛋糕','礼品','巧克力','生日祝福','表白求婚','商务开业','周年纪念','企业团购'],
+            bar_title:'',
             product_item:[],
+            id:'',
+            rid:'',
+            active:0,
+            active02:'',
+            sort:0
         }
     },
     methods:{
-        list(){
-            console.log(this)
-            let orderby_p=document.querySelectorAll('.orderby>p')
-            orderby_p.forEach(item=>{
-                item.classList.remove('on')
+        // 封装axios请求
+        loadData(id,rid,sort){
+            this.axios.get('/list',{
+                params:{
+                    // id用于查找大类
+                    id:this.id,
+                    // rid用于查找小类
+                    rid:this.rid,
+                    // sort用于排序
+                    sort:this.sort
+                }
+            }).then(res=>{
+                let result=res.data;
+                this.product_item=result;
             })
-            
+        },
+        // 点击排序选项卡发送请求
+        onClick(name,title) {
+            this.sort=name
+            // 调用axios
+            this.loadData(this.id,this.rid,this.sort)
+        },
+        // 点击小类选项卡
+        onClickcopy(name,title){
+            this.rid=name
+            this.loadData(this.id,this.rid,this.sort)
         }
     },
     mounted(){
         let id=this.$route.params.id;
-        this.axios.get('/list',{
-            params:{
-                id:id
-            }
-        }).then(res=>{
-            let result=res.data;
-            this.product_item=result;
-        })
-        
+        this.id=id
+        this.bar_title=this.van_title[id-1],
+        // 调用axios
+        this.loadData(this.id,this.rid,this.sort)
     },
     watch:{
 
@@ -68,36 +89,6 @@ export default {
 }
 </script>
 <style scoped>
-.orderby{
-    display: flex;
-    color:#232628;
-}
-.orderby p{
-    flex: 0 0 25%;
-    font-size: 0.28rem;
-    text-align: center;
-    margin: 0;
-    height: 0.88rem;
-    line-height: 0.88rem;
-}
-.price::after{
-    content: '';
-    display: inline-block;
-    width: 0.03rem;
-    height:0.03rem;
-    border:0.10rem solid #b4babf;
-    border-top: 0.10rem solid #b4babf;
-    border-left: 0.10rem solid #fff;
-    border-right: 0.10rem solid #fff;
-}
-.product{
-    display: flex;
-}
-.product p{
-    flex: 0 0 20%;
-    font-size: 0.24rem;
-    text-align: center;
-}
 .product_list{
     display: flex;
     flex-wrap: wrap;
@@ -148,8 +139,5 @@ export default {
     font-size: 0.28rem;
     color: #FF734C;
     font-weight: 500;
-}
-.on{
-    color: #ff734c;
 }
 </style>

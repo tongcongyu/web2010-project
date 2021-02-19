@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    
     <router-view/>
     <!-- 底部导航栏 -->
           <van-tabbar route>
@@ -19,4 +18,3 @@
   -moz-osx-font-smoothing: grayscale;
 }
 </style>
-<script>
