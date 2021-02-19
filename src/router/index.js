@@ -17,6 +17,8 @@ import Personal from '../views/Personal.vue'
 // 引入首页
 Vue.use(VueRouter)
 
+//我现在测试一下 -刘亚男
+
 
 const routes = [
   {
