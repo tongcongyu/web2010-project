@@ -10,6 +10,7 @@
         <van-cell title="账号和绑定" is-link />
         <van-cell title="修改密码" is-link />
         <van-cell title="反馈建议" is-link />
+        <van-button class="button" round type="info">退出当前账号</van-button>
     </div>
 </template>
 <style scoped>
@@ -24,5 +25,15 @@
 .van-cell{
     width: 90%;
     margin: 0.5rem auto;
+    border-radius: 0.2rem;
+}
+.button{
+    width: 90%;
+    margin-left: 0.3rem;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    color: #ff734c;
+    font-weight: 900;
+
 }
 </style>

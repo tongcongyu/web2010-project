@@ -3,7 +3,7 @@
         <van-nav-bar
         title="个人中心">
         </van-nav-bar>
-        <div class="user"  v-if="this.$store.state.islogin==0">
+        <div class="user" v-if="this.$store.state.islogin==0">
             <van-image
                 round
                 width="1rem"
@@ -21,13 +21,13 @@
                 src="https://img01.yzcdn.cn/vant/cat.jpeg"
             />
             <router-link class="gologin" to="/login" >{{this.$store.state.user.username}}</router-link>
-            <van-icon name="arrow" />
+            <van-icon class="user-icon" name="arrow" />
         </div>
         <div class="panel"> 
             <div class="panel-head">
                 <div>我的订单</div>
                 <div class="panel-head-right">
-                    <a href="">全部订单<van-icon name="arrow" /></a>
+                    <router-link to="/">全部订单</router-link><van-icon name="arrow" />
                 </div>
             </div>
             <van-divider />
@@ -79,46 +79,43 @@ export default {
 }
 </script>
 <style scoped>
-.van-nav-bar .van-icon {
-    color: #232628;
-    font-size: 18px;    
-}
-.user{
-    width: 100%;
-    height: 12rem;
+#app{
+    height: 14rem;
     background-color: #f0f0f0;
 }
+.user{
+    height: 1.5rem;
+    margin: 0.4rem; 
+
+}
+.van-nav-bar .van-icon {
+    color: #232628;
+    font-size: 0.28rem;    
+}
 .van-image{
-    position: absolute;
-    top: 1.4rem;
-    left: 10%;
+   vertical-align: middle;
+   margin-left: 5%;
 }
 .gologin{
-    font-size:0.5rem;
-    position: absolute;
-    top: 1.6rem;
-    left: 28%;
-    color: #232628
+    font-size:0.6rem;
+    color: #232628;
+    margin-left: 5%;
 }
-.van-icon{
+.user-icon{
     font-size: 0.4rem;
-    position: absolute;
-    top: 1.7rem;
-    left: 86%;
+    margin-left: 32%;
 }
 .panel{
     width: 90%;
-    height: 0.8rem;
     line-height: 0.8rem;
     font-size: 0.3rem;
     color: #232628;
-    position: absolute;
-    top:3.2rem;
-    left: 5%;
+    margin: 0 auto;
     background-color: #fff;
     border-radius: 0.15rem;
 }
 .panel-head{
+    height: 0.8rem;
     display: flex;
     justify-content: space-between;
     padding: 0 0.18rem;
@@ -126,7 +123,7 @@ export default {
 .panel-head-right>a{
     color:#232628;
 }
-.panel .van-grid{
+.van-grid{
     display: flex;
     justify-content: space-between;
     background-color: #fff;
@@ -136,9 +133,7 @@ export default {
 }
 .panel-body{
     width: 90%;
-    position: absolute;
-    top:5.9rem;
-    left: 5%;
+    margin: 0.2rem auto;
     border-radius: 0.15rem;
 }
 .panel-body .van-grid{
@@ -147,11 +142,9 @@ export default {
     background-color: #fff;
 }
 .panel-body1{
-     width: 90%;
-    position: absolute;
-    top:9.5rem;
-    left: 5%;
+    width: 90%;
     border-radius: 0.15rem;
+    margin: 0.2rem auto;
 }
 .van-grid>icon{
     font-size: 22rem;
