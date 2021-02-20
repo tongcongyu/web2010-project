@@ -3,6 +3,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+//引入vuex
+import Vuex from 'vuex';
+Vue.prototype.$http=axios;
+Vue.use(Vuex);
 //引入axios
 import axios from 'axios';
 Vue.prototype.axios = axios;
