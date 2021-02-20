@@ -60,7 +60,7 @@
                 <van-grid-item icon="setting-o" text="设置" to="/setup"/>
             </van-grid>
         </div>
-
+        <total-tabbar></total-tabbar>
     </div>
 </template>
 <script>
