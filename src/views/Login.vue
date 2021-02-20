@@ -120,9 +120,12 @@ export default {
             };
         this.axios.post("/login", this.qs.stringify(object)).then((res) => {
             if (res.data.code == 200) {
-                this.$store.commit("loginOk", res.data.result);
-                // 把用户信息存入sessionStorage
-                let userString = JSON.stringify(res.data.result);
+                //修改islogin
+                //res.data.result存放的是当前登录成功的用户信息
+                //把该用户信息存入vuex
+                this.$store.commit('loginOk',res.data.results);
+                //把用户信息存入sessionStorage
+                let userString = JSON.stringify(res.data.results);
                 window.sessionStorage.setItem("user", userString);
                 // 登录成功
                 this.$router.push("/");

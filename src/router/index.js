@@ -17,6 +17,8 @@ import Index from '../views/Index.vue'
 import List from '../views/List.vue'
 // 引入搜索页面
 import Search from '../views/Search.vue'
+//引入设置页面
+import Setup from '../views/Setup.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +26,10 @@ Vue.use(VueRouter)
 
 
 const routes = [
+  {
+    path:'/setup',
+    component:Setup
+  },
 	{
 	  path:'/search',
 	  component:Search

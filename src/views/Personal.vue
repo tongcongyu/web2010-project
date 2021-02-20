@@ -3,14 +3,14 @@
         <van-nav-bar
         title="个人中心">
         </van-nav-bar>
-        <div class="user"  v-if="isLogin">
+        <div class="user"  v-if="this.$store.state.islogin==0">
             <van-image
                 round
                 width="1rem"
                 height="1rem"
                 src="https://img01.yzcdn.cn/vant/cat.jpeg"
             />
-            <router-link class="gologin" to="/login" @click="login">登录/注册</router-link>
+            <router-link class="gologin" to="/login" >登录/注册</router-link>
             <van-icon name="arrow" />
         </div>
         <div class="user" v-else>
@@ -20,10 +20,10 @@
                 height="1rem"
                 src="https://img01.yzcdn.cn/vant/cat.jpeg"
             />
-            <p>{{}}</p>
+            <router-link class="gologin" to="/login" >{{this.$store.state.user.username}}</router-link>
             <van-icon name="arrow" />
         </div>
-        <div class="panel">
+        <div class="panel"> 
             <div class="panel-head">
                 <div>我的订单</div>
                 <div class="panel-head-right">
@@ -67,14 +67,15 @@
 export default {
     data(){
         return{
-            isLogin:true
+           username:'',
         }
     },
-    // methods:{
-    //     login(){
-    //         this.isLogin=false
-    //     }
-    // }
+    methods:{
+        
+    },
+    mounted() {
+        
+    },
 }
 </script>
 <style scoped>
