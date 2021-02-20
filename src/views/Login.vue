@@ -5,7 +5,7 @@
             title="登录"
             >
             <template #left>
-                    <van-icon name="arrow-left"  />
+                    <router-link to="/personal"><van-icon name="arrow-left"/></router-link>
                 </template>
                 <template #right>
                     <van-icon name="wap-nav" />
@@ -43,7 +43,7 @@
 		  
 		</van-form>
         <div class="register">
-            <a href="/register">账户注册</a>
+            <router-link to="/register">账户注册</router-link>
         </div>
         <van-divider>其他登录方式</van-divider>
         <div class="other">
@@ -129,7 +129,7 @@ export default {
                 }
                 if (res.data.code == 201) {
                 // 登录失败
-                this.$messagebox("提示:用户名或密码错误",'111');
+                this.$toast("用户名或密码错误",);
                 
                 }
             });

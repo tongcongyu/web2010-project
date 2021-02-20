@@ -17,8 +17,12 @@ import Index from '../views/Index.vue'
 import List from '../views/List.vue'
 // 引入搜索页面
 import Search from '../views/Search.vue'
+<<<<<<< HEAD
 // 引入详情页
 import Details from '../views/Details.vue'
+=======
+
+>>>>>>> 517e2bff6e4957e1cb06a727558def2dba68a881
 Vue.use(VueRouter)
 
 

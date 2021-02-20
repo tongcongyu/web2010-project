@@ -1,17 +1,27 @@
 <template>
-    <div class="personal">
+    <div id="app">
         <van-nav-bar
         title="个人中心">
-            <template #left>
-                <van-icon name="arrow-left" />
-            </template>
         </van-nav-bar>
-        <div class="bg">
-            <img src="https://img02.hua.com/m/member/center/backgroundv3.png" alt="">
-            <div class="gologin">
-                <p>Hi,欢迎来到花礼网</p>
-                <van-button round to="/login">登录/注册</van-button>
-            </div>
+        <div class="user"  v-if="isLogin">
+            <van-image
+                round
+                width="1rem"
+                height="1rem"
+                src="https://img01.yzcdn.cn/vant/cat.jpeg"
+            />
+            <router-link class="gologin" to="/login" @click="login">登录/注册</router-link>
+            <van-icon name="arrow" />
+        </div>
+        <div class="user" v-else>
+            <van-image
+                round
+                width="1rem"
+                height="1rem"
+                src="https://img01.yzcdn.cn/vant/cat.jpeg"
+            />
+            <p>{{}}</p>
+            <van-icon name="arrow" />
         </div>
         <div class="panel">
             <div class="panel-head">
@@ -47,44 +57,53 @@
                 <van-grid-item icon="service-o" text="联系客服" />
                 <van-grid-item icon="question-o" text="帮助中心" />
                 <van-grid-item icon="info-o" text="关于花礼" />
-                <van-grid-item icon="setting-o" text="设置" />
+                <van-grid-item icon="setting-o" text="设置" to="/setup"/>
             </van-grid>
         </div>
 
     </div>
 </template>
 <script>
-
+export default {
+    data(){
+        return{
+            isLogin:true
+        }
+    },
+    // methods:{
+    //     login(){
+    //         this.isLogin=false
+    //     }
+    // }
+}
 </script>
 <style scoped>
-.personal{
-    margin: 0;
-    padding: 0;
-}
 .van-nav-bar .van-icon {
     color: #232628;
     font-size: 18px;    
 }
-.bg{
-    height: 11rem;
-    background-color:#f0f0f0;
+.user{
+    width: 100%;
+    height: 12rem;
+    background-color: #f0f0f0;
 }
-.bg>img{
-    width: 100%;  
+.van-image{
+    position: absolute;
+    top: 1.4rem;
+    left: 10%;
 }
 .gologin{
+    font-size:0.5rem;
     position: absolute;
-    top: 1.3rem;
-    left: 36%;
-    display: flex;
-    flex-direction: column;
+    top: 1.6rem;
+    left: 28%;
+    color: #232628
 }
-.gologin>p{
-    font-size: 13px;
-    color:#fff;
-}
-.gologin .van-button{
-   height: 0.7rem; 
+.van-icon{
+    font-size: 0.4rem;
+    position: absolute;
+    top: 1.7rem;
+    left: 86%;
 }
 .panel{
     width: 90%;
@@ -134,6 +153,6 @@
     border-radius: 0.15rem;
 }
 .van-grid>icon{
-    font-size: 2222rem;
+    font-size: 22rem;
 }
 </style>
