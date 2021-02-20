@@ -36,49 +36,59 @@
             <div class="festival">
                 <img src="https://img02.hua.com/zhuanti/valentine/2021/21_valentine_mbanner_m.png" class="festival_top">
                 <div class="festival_item">
-                    <div class="navigation" v-for="(value,i) of 4" :key="i">
-                        <p>情人节畅销款</p>
-                        <p>初心不负</p>
-                        <p>￥375</p>
+                    <div class="navigation" v-for="(value,i) of festival" :key="i">
+                        <router-link :to="`/details/${festival[i].id}`">
+                            <div class="navigation_div">
+                                <div class="navigation_p">
+                                    <p>{{festival[i].title}}</p>
+                                    <p>{{festival[i].title02}}</p>
+                                    <p>￥{{festival[i].price}}</p>
+                                </div>
+                                <img :src="festival[i].image01">
+                            </div>
+                        </router-link>
                     </div>
+                    
                 </div>
                 <!-- 分类 -->
                 <div class="scene">
                     <div class="scene_item" v-for="(value,k) of 3" :key="k" :id="'scene_item'+k">
-                        <p>送恋人</p>
-                        <p>所有的怦然心动，都是你</p>
+                        <p>{{scene_item[k][0]}}</p>
+                        <p>{{scene_item[k][1]}}</p>
                         <img src="https://img02.hua.com/m/icon/go_red.png">
                     </div>
                 </div>
                 <div class="scene_bottom">
-                        <div v-for="(value,p) of 4" :key="p">
-                            <p>新品来袭</p>
-                            <img :src="scene_bottom_img[p]">
+                        <div v-for="(value,p) of scene_bottom_img" :key="p">
+                            <p>{{scene_bottom_img[p][0]}}</p>
+                            <img :src="scene_bottom_img[p][1]">
                         </div>
                 </div>   
             </div>                  
             <!-- 送恋人 -->
             <div>
                 <p class="product_title">送恋人/爱情鲜花</p>
-                <div class="product" v-for="(value,w) of 6" :key='w'>
-                    <img :src="product[w].image">
+                <div class="product" v-for="(value,w) of product" :key='w'>
+                    <img :src="product[w].image01">
                     <div class="product_p">
-                        <p>{{product[w].p1}}</p>
-                        <p>{{product[w].p2}}</p>
-                        <p>{{product[w].p3}}</p>
-                        <p>{{product[w].p4}}</p>
-                        <p>￥{{product[w].p5}}</p>
-                        <p>已销售{{product[w].p6}}万件</p>
+                        <p>{{product[w].title}}</p>
+                        <p>{{product[w].title01}}</p>
+                        <p>{{product[w].title02}}</p>
+                        <p>{{product[w].flower_means}}</p>
+                        <p>￥{{product[w].price}}</p>
+                        <p>已销售{{product[w].sales_volume}}件</p>
                         <img src="https://img02.hua.com/m/home/img/home_buy_btn.png" class="shop_cart">
                     </div>
                 </div>
                 <!-- 查看更多 -->
                 <div class="product_more">
-                    <a href="/">查看更多</a>
+                    <router-link to="/list/1">查看更多</router-link>
                 </div>
             </div>
             </van-pull-refresh>
         </div>
+        <!-- 底部导航栏 -->
+        <total-tabbar></total-tabbar>
     </div>
     
 </template>
@@ -110,26 +120,23 @@ export default {
                 ['9','https://img02.hua.com/wx_imgs/home_anniversary_1224.png','周年纪念'],
                 ['10','https://img02.hua.com/wx_imgs/home_group_1224.png','企业团购']
             ],
+            // 情人节商品
+            festival:[],
+            // 送长辈
+            scene_item:[
+                ['送恋人','所有的怦然心动都是你'],
+                ['送长辈','谢谢你，我爱你'],
+                ['送长辈','久违亦如初见']
+            ],
+            // 新品来袭
             scene_bottom_img:[
-                'https://img02.hua.com/wx_imgs/home_category_new.png?v2',
-                'https://img02.hua.com/wx_imgs/home_category_quality.png',
-                'https://img02.hua.com/wx_imgs/home_ranklist.png?v2',
-                'https://img02.hua.com/wx_imgs/home_category_quality.png'
-                
+                ['新品来袭','https://img02.hua.com/wx_imgs/home_category_new.png?v2'],
+                ['韩式鲜花','https://img02.hua.com/wx_imgs/home_category_quality.png'],
+                ['设计师臻选','https://img02.hua.com/wx_imgs/home_ranklist.png?v2'],
+                ['高端鲜花','https://img02.hua.com/wx_imgs/home_category_quality.png']
             ],
-            scene_item_img:[
-                'https://img02.hua.com/wx_imgs/home_use_lover.png?v2',
-                'https://img02.hua.com/wx_imgs/home_use_lover.png?v2',
-                'https://img02.hua.com/wx_imgs/home_use_lover.png?v2'
-            ],
-            product:[
-                {image:'https://img01.hua.com/uploadpic/newpic/9012009.jpg_220x240.jpg',p1:'忘情巴黎',p2:'33枝卡罗拉红玫瑰',p3:'年销售冠军',p4:'经典报矿，销售冠军',p5:375,p6:13.1},
-                {image:'https://img01.hua.com/uploadpic/newpic/9010966.jpg_220x240.jpg',p1:'一往情深',p2:'精品玫瑰礼盒:19枝卡罗拉红玫瑰，勿忘我1枝',p3:'年销售冠军',p4:'经典报矿，销售冠军',p5:375,p6:13.1},
-                {image:'https://img01.hua.com/uploadpic/newpic/9012177.jpg_220x240.jpg',p1:'一往情深',p2:'精品玫瑰礼盒:19枝卡罗拉红玫瑰，勿忘我1枝',p3:'年销售冠军',p4:'经典报矿，销售冠军',p5:375,p6:13.1},
-                {image:'https://img01.hua.com/uploadpic/newpic/9012499.jpg_220x240.jpg',p1:'一往情深',p2:'精品玫瑰礼盒:19枝卡罗拉红玫瑰，勿忘我1枝',p3:'年销售冠军',p4:'经典报矿，销售冠军',p5:375,p6:13.1},
-                {image:'https://img01.hua.com/uploadpic/newpic/9012471.jpg_220x240.jpg',p1:'一往情深',p2:'精品玫瑰礼盒:19枝卡罗拉红玫瑰，勿忘我1枝',p3:'年销售冠军',p4:'经典报矿，销售冠军',p5:375,p6:13.1},
-                {image:'https://img01.hua.com/uploadpic/newpic/9012498.jpg_220x240.jpg',p1:'一往情深',p2:'精品玫瑰礼盒:19枝卡罗拉红玫瑰，勿忘我1枝',p3:'年销售冠军',p4:'经典报矿，销售冠军',p5:375,p6:13.1}
-            ]
+            // 商品列表
+            product:[]
         }
     },
     methods:{
@@ -138,15 +145,36 @@ export default {
             // 刷新页面
             location.reload()
             this.$toast('刷新成功');
+            // 取消刷新
             this.isLoading = false;    
         },
-        onSearch(val) {
-            Toast(val);
+        // 封装axios
+        // 情人节商品请求
+        loadData(){
+            this.axios.get('/index').then(res=>{
+                let result=res.data;
+                this.festival=result;
+            })
         },
-        onCancel() {
-        Toast('取消');
-        },
-    }
+        // 商品列表请求
+        loadList(id,num){
+            this.axios.get('/index_list',{
+                params:{
+                    id:id,
+                    num:num
+                }
+            }).then(res=>{
+                let result=res.data;
+                this.product=result;
+            })
+        }
+    },
+    mounted() {
+        // 请求节日商品
+        this.loadData()
+        // 请求鲜花列表
+        this.loadList(1,6)
+    },
 }
 </script>
 <style scoped>
@@ -231,15 +259,23 @@ export default {
 }
 .festival_item p{
     margin: 0;
+    overflow: hidden;
+    height: 0.38rem;
 }
 .navigation{
     border-radius: 0.12rem;
-    flex: 0 0 49%;
-    background: url('https://gd2.alicdn.com/imgextra/i2/3103370467/O1CN01PAYZmL1FJvbD9GMhO_!!3103370467.jpg') no-repeat 90% center;
-    background-size: 30%;
+    flex: 0 0 49%; 
     margin-top: 0.1rem;
     background-color:#fff;
     height: 1.42rem;
+}
+.navigation_div{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.navigation_p{
+    flex: 0 0 60%;
 }
 .navigation p {
     margin-left: 0.3rem;
@@ -247,6 +283,11 @@ export default {
 }
 .navigation p:nth-of-type(2){
     color: #71797f;
+}
+.navigation img{
+    flex: 0 0 30%;
+    width: 1.1rem;
+    height: 1.1rem;
 }
 .scene{
     margin-top: 0.2rem;
@@ -343,6 +384,10 @@ export default {
 .product_p p{
     margin: 0;
     margin: 0.2rem 0 0 0.1rem;
+    overflow: hidden;
+    line-height: 0.36rem;
+    text-overflow: ellipsis;
+    height: 0.38rem;
 }
 .product_p P:nth-of-type(1){
     font-size: 0.3rem;
@@ -390,7 +435,7 @@ export default {
 /* 查看更多 */
 .product_more a{
     display: block;
-    margin: 0 auto 50px;
+    margin: 0 auto 1.2rem;
     background: #FFFFFF;
     border-radius: 0.4rem;
     height: 0.8rem;
@@ -398,5 +443,8 @@ export default {
     text-align: center;
     font-size: 0.26rem;
     color: rgba(35, 38, 40, 0.7);
+}
+a{
+    color: #232628;
 }
 </style>

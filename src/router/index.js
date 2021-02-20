@@ -17,12 +17,18 @@ import Index from '../views/Index.vue'
 import List from '../views/List.vue'
 // 引入搜索页面
 import Search from '../views/Search.vue'
+// 引入详情页
+import Details from '../views/Details.vue'
 Vue.use(VueRouter)
 
-//我现在测试一下 -刘亚男
 
 
 const routes = [
+  {
+    path:'/details/:id',
+    component:Details,
+    props:true
+  },
 	{
 	  path:'/search',
 	  component:Search
