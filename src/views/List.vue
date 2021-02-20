@@ -27,7 +27,7 @@
             <div class="product_item" v-for="(value,index06) of product_item" :key="index06">
                 <img :src="product_item[index06].image01">
                 <p>{{product_item[index06].title02}}</p>
-                <p>{{product_item[index06].title01}}</p>
+                <p>{{product_item[index06].title}}{{product_item[index06].title01}}</p>
                 <p>￥{{product_item[index06].price}}</p>
             </div>
         </div>

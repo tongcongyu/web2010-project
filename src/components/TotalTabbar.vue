@@ -1,11 +1,11 @@
 <template>
     <div class="totalTabbar">
-      <van-tabbar v-model="active">
-        <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-        <van-tabbar-item icon="points">分类</van-tabbar-item>
-        <van-tabbar-item icon="shopping-cart-o">购物车</van-tabbar-item>
-        <van-tabbar-item icon="smile-o">我的</van-tabbar-item>
-    </van-tabbar>
+       <van-tabbar route>
+              <van-tabbar-item replace to="/" icon="shop-collect-o">首页</van-tabbar-item>
+              <van-tabbar-item replace to="/list" icon="apps-o">分类</van-tabbar-item>
+              <van-tabbar-item replace to="/cart" icon="cart-o">购物车</van-tabbar-item>
+              <van-tabbar-item replace to="/personal" icon="friends-o">我的</van-tabbar-item>
+          </van-tabbar>
     </div>
 </template>
 

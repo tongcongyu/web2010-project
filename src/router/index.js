@@ -20,15 +20,21 @@ import Search from '../views/Search.vue'
 //引入设置页面
 import Setup from '../views/Setup.vue'
 
+// 引入详情页
+import Details from '../views/Details.vue'
 Vue.use(VueRouter)
 
-//我现在测试一下 -刘亚男
 
 
 const routes = [
   {
     path:'/setup',
-    component:Setup
+    component:Setup,
+  },
+  {
+    path:'/details/:id',
+    component:Details,
+    props:true
   },
 	{
 	  path:'/search',
