@@ -1,7 +1,7 @@
 <template>
   <div class="cart">
     <!-- 1.没有登录时的购物车 -->
-    <div class="noLogin">
+    <div class="noLogin-cart">
       <!-- 1.1导航栏 -->
       <van-nav-bar title="购物车">
         <template #left>
@@ -19,7 +19,7 @@
       <div class="emptycart">
         <img
           class="img"
-          src="../assets/imgsLyn/shopping_empty_cart.png"
+          src="../assets/imgsLyn/shopping_empty_cart.png"                        
           alt=""
         />
         <p class="text">购物车内暂时没有商品</p>
@@ -31,7 +31,15 @@
     </div>
 
     <!-- 2.登录后的购物车 -->
-    <div class="login"></div>
+    <div class="login-cart">
+      <van-nav-bar title="购物车">
+        <template #left>
+          <router-link to="/">
+            <van-icon name="arrow-left" size="0.5rem" />
+          </router-link>
+        </template>
+      </van-nav-bar>     
+    </div>
 
     <!-- 3.猜你喜欢 -->
     <div class="guess">
