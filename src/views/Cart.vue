@@ -1,4 +1,5 @@
 <template>
+ <!-- 代码可能冲突  -->
   <div class="cart">
     <!-- 1.没有登录时的购物车 -->
     <div class="noLogin-cart">
@@ -203,4 +204,5 @@ a {
   margin: 0.3rem auto 0.8rem;
   color: #71797f;
 }
+
 </style>
