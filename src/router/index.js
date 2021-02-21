@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-//引入未登录时购物车
-import Cart from '../views/Cart.vue'
-import CartLogin from '../views/CartLogin.vue'
-
+//引入购物车
+import Cart from '../views/cart/Cart.vue'
+import Order from '../views/order/Order.vue'
 
 //引入登录
 import Login from '../views/Login.vue'
@@ -55,8 +54,8 @@ const routes = [
     component:Cart
   },
   {
-    path:'/cartLogin',
-    component:CartLogin
+    path:'/order',
+    component:Order
   },
   {
     path:'/personal',
