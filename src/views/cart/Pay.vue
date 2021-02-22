@@ -87,8 +87,25 @@ a {
 .van-card__price{
   color: #FF734C;
   font-weight: 500;
+  font-size: 20px;
 }
 .delete-button {
     height: 100%;
   }
+  /* 提交订单 */
+.van-submit-bar {
+  margin: 0;
+}
+.van-submit-bar__text {
+  text-align: left;
+}
+.van-submit-bar__price{
+  color: #FE6600;
+  font-size: 0.4rem;
+  margin-left:0.1rem;
+}
+.van-submit-bar__button{
+  background: #FF734C;
+  font-size: 0.32rem;
+}
 </style>

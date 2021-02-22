@@ -13,9 +13,9 @@
     </div>
     <!-- 收货人信息和地址 -->
     <div class="form-info-top">
-      <van-cell value="请完善收货人信息" is-link title="收货人" icon="location-o">
+      <van-cell value="请完善收货人信息" is-link title="收货人" icon="location-o" to="/address">
       </van-cell>
-      <van-cell value="2月12日 上午" is-link>
+      <van-cell value="2021年3月8日" is-link to="/date">
         <template #title>
             <span class="custom-title">送达日期</span>
           </template>
@@ -24,14 +24,26 @@
     </div>
     <!-- 订购人信息 -->
     <div class="buyer">
-      <van-cell value="小爱同学" is-link>
+      <van-cell value="小爱同学" is-link to="/purchaser">
         <template #title>
             <span class="custom-title">订购人信息</span>
           </template>
       </van-cell>
     </div>
-    
-    <van-submit-bar :price="3050" label="应付" button-text="提交订单" @submit="onSubmit" />
+    <!-- 支付订单列表 -->
+    <div class="pay-list">
+      <van-swipe-cell v-for="value in 3" :key="value">
+        <van-card
+          num="2"
+          price="100" parseint
+          title="[鲜花]圆满"
+          thumb="https://s3.ax1x.com/2021/02/21/yT0CFK.jpg"
+        >
+        </van-card>
+      </van-swipe-cell>
+    </div>
+    <!-- 提交订单 -->
+    <van-submit-bar :price="1155" label="应付:" button-text="提交订单" @submit="onSubmit" />
   </div>
 </template>
 
@@ -43,12 +55,24 @@ export default {
     };
   },
   methods: {
-   
-  },
+    // 此处只能是用来定义各个函数的，以下两种方式都可以
+    yanan() {
+      // 路由跳转要被包在函数体中
+      // this.$router.push('/address');
+    },
+    kinsey: function() {
+
+    },
+    onSubmit: function(){
+      this.$router.push('/payment');
+    }
+  }
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@import '~vant/lib/index.less';
+
 .order{
   background: #e9ecf0;
 }
@@ -59,11 +83,78 @@ export default {
 .van-notice-bar a{
   color:#FF734C;
 }
-.form-info-top img {
-  position: absolute;
-  top: 3.38rem;
+/* 收货人信息和地址 */
+.form-info-top {
+  background: #fff;
+  border-radius: 12px;
+  padding: 5px;
+  margin: 5px;
+  img {
+    position: absolute;
+    top: 3.65rem;
+    display: inline-block;
+    width: 355px;
+  }
 }
+/* 订购人信息 */
 .buyer{
-  margin-top: 0.3rem;
+  background: #fff;
+  border-radius: 12px;
+  padding: 5px;
+  margin: 5px;
 }
+.van-cell__value {
+  color: #232828;
+  font-size: 0.3rem;
+  font-weight: 600;
+}
+/* 支付订单列表 */
+.pay-list{
+  background: #fff;
+  border-radius: 12px;
+  padding: 5px;
+  margin: 5px 5px 0;
+}
+// @card-price-color:red;
+// @card-desc-color:red;
+// @card-thumb-size:64px;
+// @card-price-font-size:40px;
+// @card-price-font-family:SourceHanSansCN, Helvetica, sans-serif;
+.van-card__title {
+  color: #232828;
+  font: 15px SourceHanSansCN;
+ 
+}
+.van-image__img {
+  width: 30px;
+  height: 30px;
+}
+.van-card__price {
+  color: #232828;
+  font: 20px SourceHanSansCN;
+  font-weight: bold;
+  // font-family: SourceHanSansCN, Helvetica, sans-serif;
+}
+.van-card__num {
+  color: #232828;
+  font-size: 14px;
+}
+
+/* 提交订单 */
+.van-submit-bar {
+  margin: 0;
+}
+.van-submit-bar__text {
+  text-align: left;
+}
+.van-submit-bar__price{
+  color: #FE6600;
+  font-size: 20px;
+  margin-left:5px;
+}
+.van-submit-bar__button{
+  background: #FF734C;
+  font-size: 16px;
+}
+
 </style>
