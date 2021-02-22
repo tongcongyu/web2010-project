@@ -3,10 +3,10 @@
         <!-- 导航栏 -->
         <van-nav-bar :title="bar_title">
             <template #right>
-                <van-icon name="chat-o" size="0.5rem" />
+                <van-icon name="chat-o" size="0.5rem" color="#232628" />
             </template>
             <template #left>
-                <router-link to="/"><van-icon name="arrow-left" size="0.5rem" /></router-link>
+                <router-link to="/"><van-icon name="arrow-left" size="0.5rem" color="#232628" /></router-link>
             </template>
         </van-nav-bar>
         <van-tabs @click="onClick" line-height='0' title-active-color='#ff734c' title-inactive-color='#232628' v-model="active">
@@ -25,10 +25,12 @@
         <!-- 商品列表 -->
         <div class="product_list">
             <div class="product_item" v-for="(value,index06) of product_item" :key="index06">
+                <router-link :to="`/details/${product_item[index06].id}`">
                 <img :src="product_item[index06].image01">
                 <p>{{product_item[index06].title02}}</p>
                 <p>{{product_item[index06].title}}{{product_item[index06].title01}}</p>
                 <p>￥{{product_item[index06].price}}</p>
+                </router-link>
             </div>
         </div>
     </div>
@@ -62,6 +64,9 @@ export default {
             }).then(res=>{
                 let result=res.data;
                 this.product_item=result;
+                if(isNaN(id)){
+                    this.bar_title=id
+                }
             })
         },
         // 点击排序选项卡发送请求

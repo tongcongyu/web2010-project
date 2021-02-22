@@ -69,16 +69,18 @@
             <div>
                 <p class="product_title">送恋人/爱情鲜花</p>
                 <div class="product" v-for="(value,w) of product" :key='w'>
-                    <img :src="product[w].image01">
-                    <div class="product_p">
-                        <p>{{product[w].title}}</p>
-                        <p>{{product[w].title01}}</p>
-                        <p>{{product[w].title02}}</p>
-                        <p>{{product[w].flower_means}}</p>
-                        <p>￥{{product[w].price}}</p>
-                        <p>已销售{{product[w].sales_volume}}件</p>
-                        <img src="https://img02.hua.com/m/home/img/home_buy_btn.png" class="shop_cart">
-                    </div>
+                    <router-link :to="`/details/${product[w].id}`">
+                        <img :src="product[w].image01">
+                        <div class="product_p">
+                            <p>{{product[w].title}}</p>
+                            <p>{{product[w].title01}}</p>
+                            <p>{{product[w].title02}}</p>
+                            <p>{{product[w].flower_means}}</p>
+                            <p>￥{{product[w].price}}</p>
+                            <p>已销售{{product[w].sales_volume}}件</p>
+                            <img src="https://img02.hua.com/m/home/img/home_buy_btn.png" class="shop_cart">
+                        </div>
+                    </router-link>
                 </div>
                 <!-- 查看更多 -->
                 <div class="product_more">
@@ -93,6 +95,7 @@
     
 </template>
 <script>
+import { Toast } from 'vant';
 export default {
     data() {
         return {
@@ -151,13 +154,24 @@ export default {
         // 封装axios
         // 情人节商品请求
         loadData(){
+            // 加载提示框
+            Toast.loading({
+                message: '加载中...',
+                forbidClick: true,
+            });
             this.axios.get('/index').then(res=>{
                 let result=res.data;
                 this.festival=result;
+                Toast.clear()
             })
         },
         // 商品列表请求
         loadList(id,num){
+            // 加载提示框
+            Toast.loading({
+                message: '加载中...',
+                forbidClick: true,
+            });
             this.axios.get('/index_list',{
                 params:{
                     id:id,
@@ -166,6 +180,7 @@ export default {
             }).then(res=>{
                 let result=res.data;
                 this.product=result;
+                Toast.clear()
             })
         }
     },
