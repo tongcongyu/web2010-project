@@ -1,11 +1,13 @@
 <template>
     <div id="app">
         <van-nav-bar
-        title="个人资料"
-        right-text="保存">
+        title="个人资料">
         <template #left>
             <router-link to="/personal"><van-icon name="arrow-left"/></router-link>
         </template>
+         <template #right>
+             <span @click="save">保存</span>
+         </template>
         </van-nav-bar>
         <div class="middle-one">
             <van-image
@@ -13,24 +15,25 @@
                 width="1.2rem"
                 height="1.2rem"
                 src="https://img01.yzcdn.cn/vant/cat.jpeg"
+                v-model="user_pic"
             />
             <span>点击修改图片</span>
         </div>
         <div class="middle-two">
             <van-divider />
-            <van-field v-model="username" label="姓名" /><van-divider />
+            <van-field v-model="nickname" label="姓名" /><van-divider />
             <van-field v-model="phone" label="手机" /><van-divider />
             <van-field v-model="email" label="邮箱" /><van-divider />
             <van-field name="radio" label="性别"><van-divider />
                 <template #input>
-                    <van-radio-group v-model="radio" direction="horizontal">
+                    <van-radio-group v-model="sex" direction="horizontal">
                     <van-radio name="1">男</van-radio>
                     <van-radio name="2">女</van-radio>
                     </van-radio-group>
                 </template>
             </van-field><van-divider />
             <van-field
-                :value="timeValue"
+                :value="birthday"
                 label="生日"
                 placeholder="请选择"
                 readonly
@@ -54,11 +57,14 @@
 export default {
     data(){
         return{
+            user_pic:'',
+            nickname:'',
             username:'',
             phone:'',
             email:'',
-            radio:'1',
-            timeValue:'',
+            sex:'1',
+            birthday:'',
+            id:'',
             bir_show: false, 
             minDate: new Date(1900, 0, 1),
             maxDate: new Date(2021, 3, 1),
@@ -74,7 +80,7 @@ export default {
             this.bir_show = false;
         },
         onBirConfirm() {
-            this.timeValue = this.timeFormat(this.currentDate);
+            this.birthday = this.timeFormat(this.currentDate);
             this.bir_show = false;
         },
         timeFormat(time) {
@@ -83,7 +89,36 @@ export default {
             let day = time.getDate();
             return year + "-" + month + "-" + day;
         },
+        save(){
+            var date={
+                id:JSON.parse(sessionStorage.getItem("user")).id,
+                // user_pic:this.user_pic,
+                nickname:this.nickname,
+                phone:this.phone,
+                email:this.email,
+                sex:this.sex,
+                birthday:this.birthday,
+                
+            };  
+            this.axios.post('/profile',this.qs.stringify(date)).then((res)=>{
+                console.log(res.date);
+            })
+            this.$router.go(-1);
+            this.$toast("保存成功")
+        }
     },
+    // mounted(){
+    //     this.id=JSON.parse(sessionStorage.getItem("user")).id ;
+    //     this.axios.post('/profile',this.qs.stringify({id:this.id})).then((res)=>{
+    //         this.user_pic=res.data[0].user_pic;
+    //         this.nickname=res.data[0].nickname;
+    //         this.phone=res.data[0].phone;
+    //         this.email=res.data[0].email;
+    //         this.sex=res.data[0].sex;
+    //         this.birthday=res.data[0].nbirthday;
+            
+    //     })
+    // }
 }
 </script>
 <style scoped>
