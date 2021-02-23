@@ -66,9 +66,5 @@ export default {
 .area{
   margin-top: 0.8rem;
 }
-/* .van-button__danger {
-  color: #fff;
-  background-color: #FF734C;;
-  border: 1px solid #FF734C;;
-} */
+
 </style>

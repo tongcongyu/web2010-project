@@ -17,16 +17,24 @@
         <span class="money2">¥500</span>
       </div>
     </div>
-    <van-cell value="" title="微信支付" icon="//img02.hua.com/m/images/m_payment_wxzf.png" is-link to="/">
-    </van-cell>
+    <!-- <van-cell value="" title="微信支付" icon="//img02.hua.com/m/images/m_payment_wxzf.png" is-link to="/">
+    </van-cell> -->
     <!-- 微信支付 -->
+    <div class="wechat">
+      <a href="#">
+        <img src="../../assets/imgsLyn/wechatPay.png" alt="">
+       </a>
+    </div>
+    <div class="alipay">
+      <a href="#">
+        <img src="../../assets/imgsLyn/alipay.png" alt="">
+       </a>
+    </div>
     <!-- <div class="wechat">
       <img src="//img02.hua.com/m/images/m_payment_wxzf.png" alt="" />
       <span>微信支付</span>
-      <router-link to="/"></router-link><van-icon name="arrow" />
+      <router-link to="/cart"></router-link><van-icon name="arrow" />
     </div> -->
-    <!-- 支付宝支付 -->
-    <!-- <div class="alipay"></div> -->
   </div>
 </template>
 
@@ -53,16 +61,32 @@ export default {};
   font-size: 26px;
   color: #fff;
 }
+/* 微信支付 */
 .wechat {
-  width: 380px;
-  height: 90px;
+  text-align: center;
   background: #fff;
-  padding: 5px;
-  border: 1px solid red;
 }
-.van-cell {
-  width: 380px;
-  height: 90px;
+
+.wechat>a>img{
+  display: inline-block;
+  width: 360px;
+  height: 72px;
+  margin-top: -30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px 0px #dee2e5;
+}
+/* 支付宝支付 */
+.alipay {
+  margin-top: 30px;
+  text-align: center;
   background: #fff;
+}
+.alipay>a>img{
+  display: inline-block;
+  width: 360px;
+  height: 72px;
+  margin-top: -30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px 0px #dee2e5;
 }
 </style>

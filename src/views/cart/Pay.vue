@@ -89,6 +89,11 @@ a {
   font-weight: 500;
   font-size: 20px;
 }
+.van-card__price-integer{
+  color: #FF734C;
+  font-weight: 500;
+  font-size: 20px;
+}
 .delete-button {
     height: 100%;
   }
