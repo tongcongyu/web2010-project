@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 //引入购物车
 import Cart from '../views/cart/Cart.vue'
 import Order from '../views/order/Order.vue'
+import Address from '../views/order/Address.vue'
+import Date from '../views/order/Date.vue'
+import Purchaser from '../views/order/Purchaser.vue'
+import Payment from '../views/order/Payment.vue'
 
 //引入登录
 import Login from '../views/Login.vue'
@@ -56,6 +60,22 @@ const routes = [
   {
     path:'/order',
     component:Order
+  },
+  {
+    path: '/address',
+    component: Address
+  },
+  {
+    path: '/date',
+    component: Date
+  },
+  {
+    path: '/purchaser',
+    component: Purchaser
+  },
+  {
+    path: '/payment',
+    component:Payment
   },
   {
     path:'/personal',
