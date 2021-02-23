@@ -8,20 +8,20 @@
                 round
                 width="1rem"
                 height="1rem"
-                src="https://img01.yzcdn.cn/vant/cat.jpeg"
+                src="../assets/logo.png"
             />
             <router-link class="gologin" to="/login" >登录/注册</router-link>
-            <van-icon name="arrow" />
+            <router-link to="/login"><van-icon class="user-icon" name="arrow" /></router-link>
         </div>
         <div class="user" v-else>
             <van-image
                 round
                 width="1rem"
                 height="1rem"
-                src="https://img01.yzcdn.cn/vant/cat.jpeg"
+                src=""
             />
-            <router-link class="gologin" to="/login" >{{this.$store.state.user.username}}</router-link>
-            <van-icon class="user-icon" name="arrow" />
+            <router-link class="gologin" to="/profile" >{{this.$store.state.user.username}}</router-link>
+            <van-icon class="user-icon1" name="arrow" />
         </div>
         <div class="panel"> 
             <div class="panel-head">
@@ -57,7 +57,8 @@
                 <van-grid-item icon="service-o" text="联系客服" />
                 <van-grid-item icon="question-o" text="帮助中心" />
                 <van-grid-item icon="info-o" text="关于花礼" />
-                <van-grid-item icon="setting-o" text="设置" to="/setup"/>
+                <van-grid-item icon="setting-o" text="设置" to="/login" v-if="this.$store.state.islogin==0" />
+                <van-grid-item icon="setting-o" text="设置" to="/setup" v-else />
             </van-grid>
         </div>
         <total-tabbar></total-tabbar>
@@ -92,7 +93,7 @@ export default {
     color: #232628;
     font-size: 0.28rem;    
 }
-.van-image{
+.van-imageimg{
    vertical-align: middle;
    margin-left: 5%;
 }
@@ -102,6 +103,10 @@ export default {
     margin-left: 5%;
 }
 .user-icon{
+    font-size: 0.4rem;
+    margin-left: 28%;
+}
+.user-icon1 {
     font-size: 0.4rem;
     margin-left: 32%;
 }
