@@ -36,6 +36,7 @@
     </div>
 </template>
 <script>
+import { Toast } from 'vant'
 export default {
     data(){
         return{
@@ -52,6 +53,11 @@ export default {
     methods:{
         // 封装axios请求
         loadData(id,rid,sort){
+            Toast.loading({
+            duration:5000,
+            message:'加载中',
+            forbidClick: true
+        })
             this.axios.get('/list',{
                 params:{
                     // id用于查找大类
@@ -67,6 +73,7 @@ export default {
                 if(isNaN(id)){
                     this.bar_title=id
                 }
+                Toast.clear()
             })
         },
         // 点击排序选项卡发送请求

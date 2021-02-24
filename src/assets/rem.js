@@ -1,7 +1,6 @@
 ! function(win, lib) {
     // 创建一个空对象,包括dpr，px2rem，rem，rem2px
     var flexible = lib.flexible || (lib.flexible = {});
-    console.log(flexible);
     function a() {
         // 获取页面视图宽度，判断
         var width=document.documentElement.clientWidth

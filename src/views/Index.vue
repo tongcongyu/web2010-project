@@ -180,6 +180,7 @@ export default {
             }).then(res=>{
                 let result=res.data;
                 this.product=result;
+                // 关闭加载提示框
                 Toast.clear()
             })
         }

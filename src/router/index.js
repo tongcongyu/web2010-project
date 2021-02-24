@@ -27,11 +27,18 @@ import Profile from '../views/Profile.vue'
 
 // 引入详情页
 import Details from '../views/Details.vue'
+// 引入评论页
+import Comment from '../views/Comment.vue'
 Vue.use(VueRouter)
 
 
 
 const routes = [
+  {
+    path:'/comment/:id',
+    component:Comment,
+    props:true
+  },
   {
     path:'/profile',
     component:Profile
