@@ -10,9 +10,26 @@
         <van-cell title="账号和绑定" is-link />
         <van-cell title="修改密码" is-link />
         <van-cell title="反馈建议" is-link />
-        <van-button class="button" round type="info">退出当前账号</van-button>
+        <van-button class="button" round type="info" @click="signout">退出当前账号</van-button>
     </div>
 </template>
+<script>
+export default {
+    data(){
+        return{
+            
+        }
+    },
+    methods:{
+        signout(){
+            window.sessionStorage.removeItem('user'); 
+            this.$router.push('/');
+            this.$router.go();
+            
+        }
+    }
+}
+</script>
 <style scoped>
 #app{
     height: 14rem;

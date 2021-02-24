@@ -22,6 +22,8 @@ import List from '../views/List.vue'
 import Search from '../views/Search.vue'
 //引入设置页面
 import Setup from '../views/Setup.vue'
+//引用修改页面
+import Profile from '../views/Profile.vue'
 
 // 引入详情页
 import Details from '../views/Details.vue'
@@ -30,6 +32,10 @@ Vue.use(VueRouter)
 
 
 const routes = [
+  {
+    path:'/profile',
+    component:Profile
+  },
   {
     path:'/setup',
     component:Setup,

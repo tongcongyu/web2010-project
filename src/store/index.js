@@ -17,20 +17,6 @@ export default new Vuex.Store({
       state.islogin = 1;
       state.user = payload;
     },
-    // updataMarriedState(state, payload) {
-    //   state.married = !payload;
-    // },
-    // minx(state, payload) {
-    //   if (state.cartitems[payload].count > 1) {
-    //     state.cartitems[payload].count--;
-    //   }
-    // },
-    // add(state, payload) {
-    //   state.cartitems[payload].count++;
-    // },
-    // del(state, payload) {
-    //   state.cartitems.splice(payload, 1);
-    // }
   },
   actions: {
   },
