@@ -191,6 +191,19 @@ server.get('/comment',(req,res)=>{
         res.send(result)
     })
 })
+// 添加到购物车
+server.post('/incart',(req,res)=>{
+    let obj=req.query
+    let sql='insert into web_cart(list_id,image,title,quantity,price,type,user_id) values (?,?,?,?,?,?,?)'
+    pool.query(sql,[obj.id,obj.image,obj.title,obj.num,obj.price,obj.type,obj.user_id],(err,result)=>{
+        if(err) throw err;
+        if(result.affectedRows!=0){
+            res.send({msg:'ok',code:200})
+        }else{
+            res.send({mse:'err',code:400})
+        }
+    })
+})
 // 设置端口号
 server.listen(3000,()=>{
     console.log('server is running......');

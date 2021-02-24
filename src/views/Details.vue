@@ -36,7 +36,7 @@
             <div class="option_item">
                 <p @click="sku_show">已选··</p><p @click="sku_show">{{sku.tree[0].v[0].name}}</p>
             </div>
-            <van-sku v-model="show_op" :sku="sku" :goods="goods" goods-id="1" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked"/>
+            <van-sku v-model="show_op" :sku="sku" :goods="goods" goods-id="1" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" @stepper-change="onStepperChange"/>
         </div>
         <!-- 订单评论 -->
         <div class="comment">
@@ -65,7 +65,7 @@
         <van-goods-action>
             <van-goods-action-icon icon="service" text="客服" color="#ee0a24" />
             <van-goods-action-icon icon="cart-o" text="购物车" />
-            <van-goods-action-button type="warning" text="加入购物车" />
+            <van-goods-action-button type="warning" text="加入购物车" @click="onAddCartClicked" />
             <van-goods-action-button type="danger" text="立即购买" />
         </van-goods-action>
     </div>
@@ -76,15 +76,16 @@ export default {
     data() {
         return {
             comment:true,
+            // 图片详情
             image:[],
+            // 文字详情
             result:[],
+            // 评论详情
             results:[],
-            resulted:[],
             option:['花语','材料','包装','配送'],
             current:0,
             // 预览图片
             show: false,
-            index: 0,
             images: [],
             // 商品规格
             show_op:false,
@@ -95,7 +96,7 @@ export default {
                             k_s: "s1", // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
                             v: [{
                                 id: "1", // skuValueId：规格值 id
-                                name: "11", // skuValueName：规格值名称
+                                name: "", // skuValueName：规格值名称
                                 imgUrl: "", // 规格类目图片，只有第一个规格类目可以定义图片
                                 }
                             ],
@@ -116,9 +117,9 @@ export default {
                     none_sku: false, // 是否无规格商品
                     hide_stock: false, // 是否隐藏剩余库存
             },
-            goods: {
-                picture:''
-            },
+            goods: {},
+            //获取选择的规格信息
+            num:1
         }
     },
     methods:{
@@ -134,16 +135,44 @@ export default {
         sku_show(){
             this.show_op=true;
         },
-        onBuyClicked(){
-            console.log(this.sku.tree[0].k_s)
+        // 获取商品数量
+        onStepperChange(value){
+            this.num=value;
         },
-        onAddCartClicked(){
-            console.log(2);
+        onBuyClicked(){
+            console.log(11);
+        },
+        onAddCartClicked(value){
+            console.log(this.num);
+            // 获取缓存用户数据
+            let user=JSON.parse(sessionStorage.getItem('user'))
+            if(this.$store.state.islogin==0){
+                this.$router.push('/login')
+            }else{
+                let obj={
+                    id:this.result[0],
+                    image:this.image[0],
+                    title:this.result[2],
+                    num:this.num,
+                    price:this.result[4],
+                    type:this.result[10],
+                    user_id:user.id
+                }
+                this.axios.post('/incart?'+this.qs.stringify(obj)).then(res=>{
+                    if(res.data.code==200){
+                        Toast('成功加入购物车');
+                    }else{
+                        Toast('加购失败');
+                    }
+                })
+            }
+            
+            
         },
         // 预览
         yulan(){
             this.show=true
-        }
+        },
     },
     mounted() {
         // 获取路由id参数

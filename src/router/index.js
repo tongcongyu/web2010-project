@@ -67,8 +67,9 @@ const routes = [
 	  component: Index
   },
   {
-    path:'/cart',
-    component:Cart
+    path:'/cart/:id',
+    component:Cart,
+    props:true
   },
   {
     path:'/order',
