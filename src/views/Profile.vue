@@ -101,24 +101,11 @@ export default {
                 
             };  
             this.axios.post('/profile',this.qs.stringify(date)).then((res)=>{
-                console.log(res.date);
             })
             this.$router.go(-1);
             this.$toast("保存成功")
         }
     },
-    // mounted(){
-    //     this.id=JSON.parse(sessionStorage.getItem("user")).id ;
-    //     this.axios.post('/profile',this.qs.stringify({id:this.id})).then((res)=>{
-    //         this.user_pic=res.data[0].user_pic;
-    //         this.nickname=res.data[0].nickname;
-    //         this.phone=res.data[0].phone;
-    //         this.email=res.data[0].email;
-    //         this.sex=res.data[0].sex;
-    //         this.birthday=res.data[0].nbirthday;
-            
-    //     })
-    // }
 }
 </script>
 <style scoped>

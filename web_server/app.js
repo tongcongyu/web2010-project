@@ -7,17 +7,13 @@ const bodyParser=require('body-parser')
 // 引入mysql模块，创建连接池
 const mysql=require('mysql');
 // 引入MD5
-const MD5=require('MD5');
-const { query } = require('express');
+const MD5=require('MD5')
 // 创建服务器对象
 const server=express();
-// 设置端口号
-server.listen(3000,()=>{
-    console.log('server is running......');
-});
+
 // 中间件cors
 server.use(cors({
-    origin:['http://localhost:8080','http://127.0.0.1:8080/']
+    origin:['http://localhost:8080','http://176.18.8.11:8080/']
 }));
 // 中间件body-parser
 server.use(bodyParser.urlencoded({
@@ -34,6 +30,72 @@ const pool=mysql.createPool({
     connectionLimit:'20'
 });
 // 接口
+
+//用户登录接口
+server.post('/login', (req,res)=>{
+    let username=req.body.username;
+    let password=req.body.password;
+    //SQL语句
+    let sql='select id,username from web_user where username=? and password=md5(?)';
+    pool.query(sql,[username,password],(error,results)=>{
+        if(error) throw error;
+        if(results.length==0){
+            res.send({
+                message:'login failde',
+                code:201
+            });
+        }else{
+            res.send({
+                message:'ok',
+                code:200,
+                results:results[0]
+            })
+        }
+    })
+});
+
+
+
+//注册接口
+server.post('/register',(req,res)=>{
+    let username=req.body.username;
+    let password=req.body.password;
+    //sql语句
+    let sql="select count(id) as count from web_user where username=?";
+    pool.query(sql,[username],(error,results)=>{
+        if(error) throw error;
+        let count=results[0].count;
+        if(count==0){
+            sql="insert into web_user(username,password) values(?,md5(?))";
+            pool.query(sql,[username,password],(error,results)=>{
+                if (error) throw error;
+                res.send({
+                    message:"ok",
+                    code:200
+                });
+            });
+        }else{
+            res.send({
+                message:"userexists",
+                code:201
+            });
+        }
+    });
+});
+//修改个人资料接口
+server.post('/profile',(req,res)=>{
+    let info=req.body;
+    console.log(info)
+
+    let sql="UPDATE web_user set user_pic=?, nickname=?,phone=?,email=?,sex=?,birthday=? WHERE id=?";
+    pool.query(sql,[info.user_pic,info.nickname,info.phone,info.email,info.sex,info.birthday,info.id],(error,results)=>{
+        if (error) throw error;
+        res.send({
+            code:200,
+            mag:'success'   
+        });
+    })
+})
 // 列表查询排序
 server.get('/list',(req,res)=>{
     var id=req.query.id;
@@ -129,3 +191,7 @@ server.get('/comment',(req,res)=>{
         res.send(result)
     })
 })
+// 设置端口号
+server.listen(3000,()=>{
+    console.log('server is running......');
+});

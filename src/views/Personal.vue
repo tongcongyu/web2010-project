@@ -4,24 +4,14 @@
         title="个人中心">
         </van-nav-bar>
         <div class="user" v-if="this.$store.state.islogin==0">
-            <van-image
-                round
-                width="1rem"
-                height="1rem"
-                src="../assets/logo.png"
-            />
+            <img src="../assets/login.png" alt="">
             <router-link class="gologin" to="/login" >登录/注册</router-link>
             <router-link to="/login"><van-icon class="user-icon" name="arrow" /></router-link>
         </div>
         <div class="user" v-else>
-            <van-image
-                round
-                width="1rem"
-                height="1rem"
-                src=""
-            />
+            <img src="../assets/login.png" alt="">
             <router-link class="gologin" to="/profile" >{{this.$store.state.user.username}}</router-link>
-            <van-icon class="user-icon1" name="arrow" />
+            <van-icon class="user-icon" name="arrow" />
         </div>
         <div class="panel"> 
             <div class="panel-head">
@@ -87,13 +77,17 @@ export default {
 .user{
     height: 1.5rem;
     margin: 0.4rem; 
-
 }
 .van-nav-bar .van-icon {
     color: #232628;
     font-size: 0.28rem;    
 }
-.van-imageimg{
+.user>img{
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+}
+.van-image{
    vertical-align: middle;
    margin-left: 5%;
 }
@@ -104,11 +98,10 @@ export default {
 }
 .user-icon{
     font-size: 0.4rem;
-    margin-left: 28%;
-}
-.user-icon1 {
-    font-size: 0.4rem;
-    margin-left: 32%;
+    position: absolute;
+    top: 1.84rem;
+    left: 6.56rem;
+     color: #232628;
 }
 .panel{
     width: 90%;
