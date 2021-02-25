@@ -4,10 +4,8 @@
     <div class="login-cart">
       <!-- 导航栏 -->
       <van-nav-bar title="购物车">
-        <template #left>
-          <router-link to="/">
+        <template #left @click="goback">
             <van-icon name="arrow-left" size="0.5rem" />
-          </router-link>
         </template>
       </van-nav-bar>
     </div>
@@ -50,6 +48,10 @@ export default {
   methods: {
     onSubmit:function(){
       this.$router.push('/order');
+    },
+    // 返回上一级
+    goback(){
+      window.history.back()
     }
   }
 };

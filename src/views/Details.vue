@@ -36,7 +36,7 @@
             <div class="option_item">
                 <p @click="sku_show">已选··</p><p @click="sku_show">{{sku.tree[0].v[0].name}}</p>
             </div>
-            <van-sku v-model="show_op" :sku="sku" :goods="goods" goods-id="1" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" @stepper-change="onStepperChange"/>
+            <van-sku v-model="show_op" :sku="sku" :goods="goods" goods-id="1" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" @stepper-change="onStepperChange"  @sku-selected="onSkuSelected"/>
         </div>
         <!-- 订单评论 -->
         <div class="comment">
@@ -64,7 +64,7 @@
         <!-- 底部商品导航栏 -->
         <van-goods-action>
             <van-goods-action-icon icon="service" text="客服" color="#ee0a24" />
-            <van-goods-action-icon icon="cart-o" text="购物车" />
+            <van-goods-action-icon icon="cart-o" text="购物车" @click="cart"/>
             <van-goods-action-button type="warning" text="加入购物车" @click="onAddCartClicked" />
             <van-goods-action-button type="danger" text="立即购买" />
         </van-goods-action>
@@ -119,7 +119,9 @@ export default {
             },
             goods: {},
             //获取选择的规格信息
-            num:1
+            num:1,
+            type:'',
+            price:''
         }
     },
     methods:{
@@ -131,7 +133,7 @@ export default {
         changeNum(index) {
             this.current = index;
         },
-        // 启动商品规格
+        // 启动商品规格组件
         sku_show(){
             this.show_op=true;
         },
@@ -139,11 +141,19 @@ export default {
         onStepperChange(value){
             this.num=value;
         },
+        // 获取商品规格类型
+        onSkuSelected(value){
+            this.type=value.skuValue.name
+            if(value.selectedSkuComb){
+               this.price=value.selectedSkuComb.price/100
+            }
+        },
+        // 购买
         onBuyClicked(){
             console.log(11);
         },
+        // 加入购物车
         onAddCartClicked(value){
-            console.log(this.num);
             // 获取缓存用户数据
             let user=JSON.parse(sessionStorage.getItem('user'))
             if(this.$store.state.islogin==0){
@@ -154,10 +164,11 @@ export default {
                     image:this.image[0],
                     title:this.result[2],
                     num:this.num,
-                    price:this.result[4],
-                    type:this.result[10],
+                    price:this.price,
+                    type:this.type,
                     user_id:user.id
                 }
+                console.log(obj);
                 this.axios.post('/incart?'+this.qs.stringify(obj)).then(res=>{
                     if(res.data.code==200){
                         Toast('成功加入购物车');
@@ -165,9 +176,15 @@ export default {
                         Toast('加购失败');
                     }
                 })
+            }  
+        },
+        // 跳转到购物车
+        cart(){
+            if(this.$store.state.islogin==0){
+                this.$router.push('/cart/empty')
+            }else{
+                this.$router.push(`/cart/${this.$store.state.user.id}`)
             }
-            
-            
         },
         // 预览
         yulan(){
@@ -196,7 +213,9 @@ export default {
             // 商品详情
             this.result=Object.values(res.data.result[0]);
             this.sku.tree[0].v[0].name=this.result[10]
+            this.type=this.result[10]
             this.sku.list[0].price=this.result[4]*100
+            this.price=this.result[4]*100
             // 评论
             if(res.data.results.length==0){
                 this.comment=false

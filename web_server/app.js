@@ -204,6 +204,15 @@ server.post('/incart',(req,res)=>{
         }
     })
 })
+// 请求猜你喜欢
+server.get('/guess',(req,res)=>{
+    let page=parseInt(req.query.page) 
+    let sql='select id,image01,title01,price from web_list limit ?,6'
+    pool.query(sql,[page],(err,result)=>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
 // 设置端口号
 server.listen(3000,()=>{
     console.log('server is running......');
