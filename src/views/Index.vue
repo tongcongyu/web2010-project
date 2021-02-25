@@ -189,7 +189,8 @@ export default {
         // 请求节日商品
         this.loadData()
         // 请求鲜花列表
-        this.loadList(1,6)
+        let num=parseInt(Math.random()*4+1)
+        this.loadList(1,num)
     },
 }
 </script>
