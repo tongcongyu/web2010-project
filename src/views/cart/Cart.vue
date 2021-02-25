@@ -18,9 +18,17 @@ Vue.component('cart-guess', Guess)
 export default {
   data() {
     return {
-      isEmpty:false
+      isEmpty:true
     }
-  }
+  },
+  mounted() {
+    let id=this.$route.params.id;
+    if(id=='empty'){
+      this.isEmpty=true
+    }else{
+      this.isEmpty=false
+    }
+  },
 }
 </script>
 

@@ -5,9 +5,7 @@
       <!-- 1.1导航栏 -->
       <van-nav-bar title="购物车">
         <template #left>
-          <router-link to="/">
-            <van-icon name="arrow-left" size="0.5rem" />
-          </router-link>
+          <van-icon name="arrow-left" size="0.5rem" @click="goback"/>
         </template>
       </van-nav-bar>
       <!-- 1.2登录提示 -->
@@ -53,6 +51,9 @@ export default {
       Toast("返回");
       // this.$router.push('/login');
     },
+    goback(){
+      window.history.back()
+    }
   },
 };
 </script>

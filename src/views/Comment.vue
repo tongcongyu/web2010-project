@@ -44,9 +44,9 @@ export default {
         },
         // 跳转到购物车
         cart(){
-            let a=sessionStorage.getItem('userString')
-            console.log(a);
-            // this.$router.push('/cart')
+            let userString=this.$store.state.islogin 
+            console.log(userString);
+            this.$router.push(`/cart/${userString}`)
         }
     },
     mounted() {
