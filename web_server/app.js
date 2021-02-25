@@ -96,6 +96,18 @@ server.post('/profile',(req,res)=>{
         });
     })
 })
+//个人资料查询
+server.post('/profile',(req,res)=>{
+    let id=req.body;
+    let sql="select user_pic,nickname,phone,email,sex,birthday from web_user where id=?";
+    pool.query(sql,[id.user_pic,id.nickname,id.phone,id.email,id.sex,id.birthday,id.id],(error,result)=>{
+        if (error) throw error;
+        res.send({
+            code:200,
+            mag:'success'
+        })
+    })
+})
 // 列表查询排序
 server.get('/list',(req,res)=>{
     var id=req.query.id;

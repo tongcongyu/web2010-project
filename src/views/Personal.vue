@@ -9,7 +9,7 @@
             <router-link to="/login"><van-icon class="user-icon" name="arrow" /></router-link>
         </div>
         <div class="user" v-else>
-            <img src="../assets/login.png" alt="">
+            <img :src="user_pic" alt="">
             <router-link class="gologin" to="/profile" >{{this.$store.state.user.username}}</router-link>
             <van-icon class="user-icon" name="arrow" />
         </div>
@@ -59,6 +59,7 @@ export default {
     data(){
         return{
            username:'',
+           user_pic:""
         }
     },
     methods:{

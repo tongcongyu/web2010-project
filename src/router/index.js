@@ -24,6 +24,8 @@ import Search from '../views/Search.vue'
 import Setup from '../views/Setup.vue'
 //引用修改页面
 import Profile from '../views/Profile.vue'
+//引入分页
+import Cake from '../views/Cake.vue'
 
 // 引入详情页
 import Details from '../views/Details.vue'
@@ -34,6 +36,10 @@ Vue.use(VueRouter)
 
 
 const routes = [
+  {
+    path:'/cake',
+    component:Cake
+  },
   {
     path:'/comment/:id',
     component:Comment,
