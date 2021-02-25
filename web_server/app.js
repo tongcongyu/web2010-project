@@ -225,6 +225,20 @@ server.get('/guess',(req,res)=>{
         res.send(result)
     })
 })
+
+// 请求分类
+server.get('/typeImage',(req,res)=>{
+    let id=req.query.id
+    let sql='select id,image from web_typeImage where type_id=?'
+    pool.query(sql,[id],(err,result)=>{
+        if(err)throw err;
+        let sql='select id,image,text from web_type where type_id=?';
+        pool.query(sql,[id],(err,results)=>{
+            if(err) throw err
+            res.send({result:result,results:results})
+        })
+    })
+})
 // 设置端口号
 server.listen(3000,()=>{
     console.log('server is running......');

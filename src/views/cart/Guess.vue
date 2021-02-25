@@ -29,7 +29,6 @@ export default {
         }
       }).then(res=>{
         this.result=res.data;
-        console.log(this.result);
       })
     },
 }

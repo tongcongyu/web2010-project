@@ -1,22 +1,9 @@
 <template>
   <div class="pay">
-    <!-- 登录后的购物车 -->
-    <div class="login-cart">
-      <!-- 导航栏 -->
-      <van-nav-bar title="购物车">
-        <template #left @click="goback">
-            <van-icon name="arrow-left" size="0.5rem" />
-        </template>
-      </van-nav-bar>
-    </div>
     <!-- 购物商品信息列表 -->
     <div class="cart-list">
       <van-swipe-cell v-for="value in 3" :key="value">
-        <van-card
-          price="2.00"
-          title="[鲜花]圆满"
-          thumb="https://s3.ax1x.com/2021/02/21/yT0CFK.jpg"
-        >
+        <van-card price="2.00" title="[鲜花]圆满" thumb="https://s3.ax1x.com/2021/02/21/yT0CFK.jpg" >
           <template #footer>
               <van-stepper />
           </template>
@@ -26,8 +13,6 @@
         </template>
       </van-swipe-cell>
     </div>
-    <!-- 猜你喜欢 -->
-    <cart-guess></cart-guess>
     <!-- 去结算 -->
     <van-submit-bar :price="3050" button-text="去结算" @submit="onSubmit" />
   </div>

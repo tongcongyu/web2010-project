@@ -24,7 +24,7 @@
         <!-- 底部导航栏 -->
         <van-goods-action>
             <van-goods-action-icon icon="cart-o" text="购物车" @click="cart" />
-            <van-goods-action-button type="warning" text="加入购物车" />
+            <van-goods-action-button type="warning" text="加入购物车"/>
         </van-goods-action>
     </div>
 </template>
@@ -40,13 +40,16 @@ export default {
     methods:{
         // 返回上一级
         back(){
+            console.log(11);
             window.history.back();
         },
         // 跳转到购物车
         cart(){
-            let userString=this.$store.state.islogin 
-            console.log(userString);
-            this.$router.push(`/cart/${userString}`)
+            if(this.$store.state.islogin==0){
+                this.$router.push('/cart/empty')
+            }else{
+                this.$router.push(`/cart/${this.$store.state.user.id}`)
+            }
         }
     },
     mounted() {

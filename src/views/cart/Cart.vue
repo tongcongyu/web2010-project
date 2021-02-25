@@ -1,7 +1,16 @@
 <template>
   <div class="cart">
+    <!-- 导航栏 -->
+      <van-nav-bar title="购物车">
+        <template #left>
+            <van-icon name="arrow-left" size="0.5rem"  @click="goback"/>
+        </template>
+      </van-nav-bar>
+      <!-- 组件 -->
     <cart-empty v-if="isEmpty"></cart-empty>
     <cart-pay v-else></cart-pay>
+    <!-- 猜你喜欢 -->
+    <cart-guess></cart-guess>
   </div>
 </template>
 
@@ -19,6 +28,11 @@ export default {
   data() {
     return {
       isEmpty:true
+    }
+  },
+  methods:{
+    goback(){
+      window.history.back()
     }
   },
   mounted() {

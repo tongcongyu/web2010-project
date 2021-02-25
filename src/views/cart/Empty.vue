@@ -2,12 +2,6 @@
   <div class="empty">
     <!-- 1.没有登录时的购物车 -->
     <div class="noLogin-cart">
-      <!-- 1.1导航栏 -->
-      <van-nav-bar title="购物车">
-        <template #left>
-          <van-icon name="arrow-left" size="0.5rem" @click="goback"/>
-        </template>
-      </van-nav-bar>
       <!-- 1.2登录提示 -->
       <div class="login_tip">
         <span>登录后将同步您的购物车商品</span>
@@ -27,9 +21,7 @@
         > -->
       </div>
     </div>
-    
-    <!-- 猜你喜欢 -->
-    <cart-guess></cart-guess>
+
     <!-- 底部导航栏 -->
     <total-tabbar></total-tabbar>
   </div>
@@ -51,9 +43,6 @@ export default {
       Toast("返回");
       // this.$router.push('/login');
     },
-    goback(){
-      window.history.back()
-    }
   },
 };
 </script>
