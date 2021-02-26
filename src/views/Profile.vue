@@ -22,8 +22,8 @@
         <div class="middle-two">
             <van-divider />
             <van-field v-model="nickname" label="昵称" placeholder="昵称"/><van-divider />
-            <van-field v-model="phone" label="手机" placeholder="手机" /><van-divider />
-            <van-field v-model="email" label="邮箱" placeholder="邮箱"/><van-divider />
+            <van-field v-model="phone" label="手机" placeholder="手机" :state="phoneState" /><van-divider />
+            <van-field v-model="email" label="邮箱" placeholder="邮箱" :state="emailState"/><van-divider />
             <van-field name="radio" label="性别"><van-divider />
                 <template #input>
                     <van-radio-group v-model="sex" direction="horizontal">
@@ -69,6 +69,8 @@ export default {
             minDate: new Date(1900, 0, 1),
             maxDate: new Date(2021, 3, 1),
             currentDate: new Date(),
+            phoneState:"",
+            emailState:"",
         }
     },
     methods: {
@@ -89,10 +91,38 @@ export default {
             let day = time.getDate();
             return year + "-" + month + "-" + day;
         },
+        checkPhone(){
+            let phoneRegExp=/^1[3-9]\d{9}$/;
+            if(phoneRegExp.test(this.phone)){
+                this.phoneState = "success";
+                return true;
+            } else {
+                this.$toast({
+                    message: "手机格式错误",
+                    position: "middle",
+                });
+                this.passwordState = "error";
+                return false;
+            }
+        },
+        checkEmail(){
+            let emailRegExp=/^[a-zA-Z0-9]{6,11}@[a-zA-Z0-9]{2,5}.[a-zA-Z0-9_-]{3}$/;
+            if(emailRegExp.test(this.email)){
+                this.emailState = "success";
+                return true;
+            } else {
+                this.$toast({
+                    message: "邮箱格式错误",
+                    position: "middle",
+                });
+                this.passwordState = "error";
+                return false;
+            }
+        },
         save(){
+            if(this.checkPhone() && this.checkEmail() ){
             var date={
                 id:JSON.parse(sessionStorage.getItem("user")).id,
-                // user_pic:this.user_pic,
                 nickname:this.nickname,
                 phone:this.phone,
                 email:this.email,
@@ -105,17 +135,19 @@ export default {
             this.$router.go(-1);
             this.$toast("保存成功")
         }
+        }
     },
     mounted() {
-        this.axios.get('/profile',this.qs.stringify(JSON.parse(sessionStorage.getItem("user")).id)).then((res)=>{
+        let obj=JSON.parse(sessionStorage.getItem('user'))
+        this.axios.get('/profiles?'+this.qs.stringify(obj)).then((res)=>{
         this.nickname = res.data.nickname;
         this.phone = res.data.phone;
         this.email = res.data.email;
         this.sex = res.data.sex;
         this.birthday = res.data.birthday;
-        console.log(nickname)
         })
     },
+    
 }
 </script>
 <style scoped>

@@ -9,8 +9,8 @@
             <router-link to="/login"><van-icon class="user-icon" name="arrow" /></router-link>
         </div>
         <div class="user" v-else>
-            <img :src="user_pic" alt="">
-            <router-link class="gologin" to="/profile" >{{this.$store.state.user.username}}</router-link>
+            <img :src="this.user_pic" alt="">
+            <router-link class="gologin" to="/profile" >{{this.nickname}}</router-link>
             <van-icon class="user-icon" name="arrow" />
         </div>
         <div class="panel"> 
@@ -58,15 +58,20 @@
 export default {
     data(){
         return{
-           username:'',
-           user_pic:""
+           user_pic:"",
+           nickname:""
         }
     },
     methods:{
         
     },
     mounted() {
+        let obj=JSON.parse(sessionStorage.getItem('user'))
+        this.axios.get('/profiles?'+this.qs.stringify(obj)).then((res)=>{
+        this.user_pic=res.data.user_pic;
         
+        this.nickname = res.data.nickname;
+        })
     },
 }
 </script>
@@ -84,9 +89,10 @@ export default {
     font-size: 0.28rem;    
 }
 .user>img{
-    width: 1rem;
-    height: 1rem;
+    width: 1.1rem;
+    height: 1.1rem;
     vertical-align: middle;
+    border-radius: 50%;
 }
 .van-image{
    vertical-align: middle;
@@ -95,7 +101,7 @@ export default {
 .gologin{
     font-size:0.6rem;
     color: #232628;
-    margin-left: 5%;
+    margin-left: 0.7rem;
 }
 .user-icon{
     font-size: 0.4rem;

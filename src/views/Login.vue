@@ -22,8 +22,8 @@
 		    label="手机号"
 		    placeholder="请输入手机号"
 		    :attr="{ maxlength: '20' }"
-            v-model="username"
-            :state="usernameState"
+            v-model="phone"
+            :state="phoneState"
 		  />
 		  <van-field
 		   
@@ -68,30 +68,30 @@ export default {
     data(){
         return{
             //用户名的初始值
-            username:"",
+            phone:"",
             //密码初始值
             password:"",
             //标识用户名的状态
-            usernameState:"",
+            phoneState:"",
             //标识密码的状态
             passwordState:"",
         };
     },
     methods:{
-        checkUsername(){
+        checkPhone(){
             //判断用户名是否合法
-            let usernameRegExp=/^[0-9]{11}$/;
-            if(usernameRegExp.test(this.username)){
-                this.usernameState="success";
+            let phoneRegExp=/^1[3-9]\d{9}$/;
+            if(phoneRegExp.test(this.phone)){
+                this.phoneState="success";
                 return true;
             }else{
                 //短消息提示框
                 this.$toast({
-                    message:"用户名格式错误",
+                    message:"手机号格式错误",
                     position:"middle",
                     duration:"5000"
                 });
-                this.usernameState="error";
+                this.phoneState="error";
                 return false;
             }
         },
@@ -112,10 +112,10 @@ export default {
         },
         // 用户注册处理函数
         handle() {
-        if (this.checkUsername() && this.checkPassword()) {
+        if (this.checkPhone() && this.checkPassword()) {
             //将用户名和密码信息提交到WEB服务器
             let object = {
-            username: this.username,
+            phone: this.phone,
             password: this.password,
             };
         this.axios.post("/login", this.qs.stringify(object)).then((res) => {

@@ -21,9 +21,9 @@
 		    label="手机号"
 		    placeholder="请输入手机号"
 		    :attr="{maxlenth:'20'}"
-            v-model="username"
-            :state="usernameState"
-            @blur.native.capture="checkUsername"
+            v-model="phone"
+            :state="phoneState"
+            @blur.native.capture="checkPhone"
 		  />
 		  <van-field
 		    type="password"
@@ -55,19 +55,19 @@
 export default {
     data(){
         return{
-            username:"",
+            phone:"",
             password:"",
             conpassword:"",
-            usernameState:"",
+            phoneState:"",
             passwordState:"",
             conpasswordState:""
         } 
     },
     methods:{
-        checkUsername(){
-            let usernameRegExp=/^[0-9]{11}$/;
-            if(usernameRegExp.test(this.username)){
-                this.usernameState="success";
+        checkPhone(){
+            let phoneRegExp=/^[0-9]{11}$/;
+            if(phoneRegExp.test(this.phone)){
+                this.phoneState="success";
                 return true;
             }else{
                 this.$toast({
@@ -75,7 +75,7 @@ export default {
                     position:"middle",
                     duration:"5000",
                 });
-                this.usernameState="error";
+                this.phoneState="error";
                 return false;
             }
         },
@@ -109,10 +109,10 @@ export default {
         //用户注册函数
         handle(){
             if(
-                this.checkUsername() && this.checkPassword() && this.checkConPassword()
+                this.checkPhone() && this.checkPassword() && this.checkConPassword()
             ){
                 let object={
-                    username:this.username,
+                    phone:this.phone,
                     password:this.password,
                 };
                 this.axios.post("/register",this.qs.stringify(object)).then((res)=>{
