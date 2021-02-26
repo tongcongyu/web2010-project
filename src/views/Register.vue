@@ -18,8 +18,8 @@
         <van-form class="register">
 		  <van-field
 		    type="text"
-		    label="用户名"
-		    placeholder="请输入用户名"
+		    label="手机号"
+		    placeholder="请输入手机号"
 		    :attr="{maxlenth:'20'}"
             v-model="username"
             :state="usernameState"
@@ -65,7 +65,7 @@ export default {
     },
     methods:{
         checkUsername(){
-            let usernameRegExp=/^\w{6,20}$/;
+            let usernameRegExp=/^[0-9]{11}$/;
             if(usernameRegExp.test(this.username)){
                 this.usernameState="success";
                 return true;

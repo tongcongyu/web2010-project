@@ -96,8 +96,8 @@ server.post('/profile',(req,res)=>{
         });
     })
 })
-//个人资料查询
-server.post('/profile',(req,res)=>{
+//个人资料查询123
+server.get('/profile',(req,res)=>{
     let id=req.body;
     let sql="select user_pic,nickname,phone,email,sex,birthday from web_user where id=?";
     pool.query(sql,[id.user_pic,id.nickname,id.phone,id.email,id.sex,id.birthday,id.id],(error,result)=>{
@@ -161,8 +161,8 @@ server.get('/index',(req,res)=>{
 // 请求首页列表商品
 server.get('/index_list',(req,res)=>{
     let id=req.query.id;
-    let num=(parseInt(req.query.num)-1)*6
-    let sql='select id,image01,title,title01,title02,flower_means,price,sales_volume from web_list  where category_id=? limit ?,6';
+    let num=parseInt(req.query.num)
+    let sql='select id,image01,title,title01,title02,flower_means,price,sales_volume from web_list  where category_id=? limit 1,?';
     pool.query(sql,[id,num],(err,result)=>{
         if(err)throw err;
         res.send(result)
@@ -223,20 +223,6 @@ server.get('/guess',(req,res)=>{
     pool.query(sql,[page],(err,result)=>{
         if(err) throw err;
         res.send(result)
-    })
-})
-
-// 请求分类
-server.get('/typeImage',(req,res)=>{
-    let id=req.query.id
-    let sql='select id,image from web_typeImage where type_id=?'
-    pool.query(sql,[id],(err,result)=>{
-        if(err)throw err;
-        let sql='select id,image,text from web_type where type_id=?';
-        pool.query(sql,[id],(err,results)=>{
-            if(err) throw err
-            res.send({result:result,results:results})
-        })
     })
 })
 // 设置端口号

@@ -21,9 +21,9 @@
         </div>
         <div class="middle-two">
             <van-divider />
-            <van-field v-model="nickname" label="姓名" /><van-divider />
-            <van-field v-model="phone" label="手机" /><van-divider />
-            <van-field v-model="email" label="邮箱" /><van-divider />
+            <van-field v-model="nickname" label="昵称" placeholder="昵称"/><van-divider />
+            <van-field v-model="phone" label="手机" placeholder="手机" /><van-divider />
+            <van-field v-model="email" label="邮箱" placeholder="邮箱"/><van-divider />
             <van-field name="radio" label="性别"><van-divider />
                 <template #input>
                     <van-radio-group v-model="sex" direction="horizontal">
@@ -105,6 +105,16 @@ export default {
             this.$router.go(-1);
             this.$toast("保存成功")
         }
+    },
+    mounted() {
+        this.axios.get('/profile',this.qs.stringify(JSON.parse(sessionStorage.getItem("user")).id)).then((res)=>{
+        this.nickname = res.data.nickname;
+        this.phone = res.data.phone;
+        this.email = res.data.email;
+        this.sex = res.data.sex;
+        this.birthday = res.data.birthday;
+        console.log(nickname)
+        })
     },
 }
 </script>
