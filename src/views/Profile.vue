@@ -9,16 +9,16 @@
              <span @click="save">保存</span>
          </template>
         </van-nav-bar>
-        <div class="middle-one">
-            <van-image
-                round
-                width="1.2rem"
-                height="1.2rem"
-                src="https://img01.yzcdn.cn/vant/cat.jpeg"
-                v-model="user_pic"
-            />
-            <span>点击修改图片</span>
-        </div>
+    <div class="avatar">
+      <van-uploader
+        :after-read="afterRead"
+        :before-read="beforeRead"
+        :max-count="1"
+        preview-size="120px"
+      >
+        <van-image width="100" height="100" round :src="user_pic" />
+      </van-uploader>
+    </div>
         <div class="middle-two">
             <van-divider />
             <van-field v-model="nickname" label="昵称" placeholder="昵称"/><van-divider />
@@ -57,8 +57,8 @@
 export default {
     data(){
         return{
-            user_pic:'',
-            nickname:'',
+            user_pic: '', //头像
+            nickname:'',// 昵称
             username:'',
             phone:'',
             email:'',
@@ -74,6 +74,21 @@ export default {
         }
     },
     methods: {
+        //文件上传前
+        beforeRead(file) {
+            if (file.type !== "image/jpeg" && file.type !== "image/png") {
+            this.$toast("只允许上传jpg/png格式的图片！");
+            return false;
+            }
+            return true;
+        },
+        //文件上传成功后
+        async afterRead(file) {
+        //文件读取完成后的回调函数
+        console.log(file);
+        this.user_pic = file.content;
+        let uploadImg = await upLoaderImg(file.file); //使用上传的方法。file.file
+        },
         //生日
         showBir() {
             this.bir_show = true;
@@ -158,9 +173,13 @@ export default {
 .van-nav-bar-text{
     background-color: #232628;
 }
-.van-nav-bar .van-icon {
-    color: #232628;
-    font-size: 0.36rem;    
+.avatar{
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .middle-one{
     width: 100%;

@@ -101,7 +101,7 @@ export default {
 .gologin{
     font-size:0.6rem;
     color: #232628;
-    margin-left: 0.7rem;
+    margin-left: 0.6rem;
 }
 .user-icon{
     font-size: 0.4rem;
